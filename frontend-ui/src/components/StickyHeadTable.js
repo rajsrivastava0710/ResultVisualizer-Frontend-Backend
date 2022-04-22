@@ -9,6 +9,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import useHttp from "../custom_hooks/useHttp";
 import { BASE_URL } from "../constants";
+import { Box } from "@mui/system";
+import styled from "styled-components";
 
 const columns = [
   { id: "rollNumber", label: "Roll No.", minWidth: 170 },
@@ -38,22 +40,30 @@ const rows = [
   createData("Brazil", "BR", 210147125, 8515767),
 ];
 
+const Select = styled.select`
+  padding: 10px;
+  margin: 20px;
+`;
+
+const Option = styled.option``;
+
 export default function StickyHeadTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [data, setData] = useState();
   const { isLoading, error, sendRequest } = useHttp();
+  const [queryParam, setQueryParam] = useState();
 
   useEffect(() => {
     sendRequest(
       {
-        url: BASE_URL + "/students",
+        url: `${BASE_URL}/students?branch=${queryParam}`,
       },
       setData
     );
-  }, []);
+  }, [queryParam]);
 
-  console.log(data);
+  console.log(queryParam);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -64,60 +74,84 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
+  const handleChangeSelect = (event) => {
+    setQueryParam(event.target.value);
+  };
+
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
+    <Box
+      sx={{
+        width: "80%",
+        height: "80%",
+        margin: "auto",
+        backgroundColor: "primary.dark",
+      }}
+    >
+      <Select defaultValue="Branch" onChange={handleChangeSelect}>
+        <Option>Civil</Option>
+        <Option>Computer Science</Option>
+        <Option>Electrical</Option>
+        <Option>Electronics</Option>
+        <Option>Mechanical</Option>
+        <Option>IT</Option>
+      </Select>
+      {isLoading && <h1>Loading</h1>}
+      {!isLoading && data && (
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
                     >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data &&
+                  data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.code}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.format && typeof value === "number"
+                                  ? column.format(value)
+                                  : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      )}
+    </Box>
   );
 }
