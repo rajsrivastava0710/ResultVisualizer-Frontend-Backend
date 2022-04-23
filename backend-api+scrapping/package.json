@@ -1,0 +1,21 @@
+{
+  "name": "scrappupeteer",
+  "version": "1.0.0",
+  "description": "Web Scrapping using Pupeteer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "pupeteer"
+  ],
+  "author": "Raj Srivastava",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^6.0.6",
+    "puppeteer": "^10.2.0"
+  }
+}
