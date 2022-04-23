@@ -59,47 +59,58 @@ function populateRoll(roll,startRoll,rangeRoll){
     }
 }
 
-module.exports.home = async function(req,res,next){
-	let roll = [];
-	let startRoll = 16250, rangeRoll = 10;
-	let cse = []
-	populateRoll(roll,startRoll,rangeRoll);
-	cse = await screenShot(roll);
-    for(let i=0;i<cse.length;i++){
-        let rollNo = cse[i]['RollNo'];
+async function saveBranchStudentsinDB(startRoll, rangeRoll, students) {
+    let roll = []
+    populateRoll(roll,startRoll,rangeRoll);
+    let studentData = []
+    studentData = await screenShot(roll);
+    let tempStudentData = []
+    for(let i=0;i<studentData.length;i++){
+        let percentNumber = Number(studentData[i]['Percent']);
+        if(percentNumber>100 || percentNumber<=10) {
+            continue;
+        }
+        let rollNo = studentData[i]['RollNo'];
         let exists = await Student.findOne({
             rollNumber: rollNo 
         });
-        if(!exists){
-            var student = await Student.create(cse[i])
+        if(!exists ){
+            var student = await Student.create(studentData[i])
             student.save()
         }
+        tempStudentData.push(studentData[i]);
     }
+    students.push(tempStudentData)
+    // students.push(studentData);
+}
+
+module.exports.home = async function(req,res,next){
+    let students = []
+
+    let startRoll = 16101, rangeRoll = 10;
+    await saveBranchStudentsinDB(startRoll,rangeRoll, students)
+    console.log("Done 1/6")
+	startRoll = 16201, rangeRoll = 10;
+    await saveBranchStudentsinDB(startRoll,rangeRoll,students)
+    console.log("Done 2/6")
+    startRoll = 16301, rangeRoll = 10;
+    await saveBranchStudentsinDB(startRoll,rangeRoll, students)
+    console.log("Done 3/6")
+    startRoll = 16401, rangeRoll = 10;
+    await saveBranchStudentsinDB(startRoll,rangeRoll, students)
+    console.log("Done 4/6")
+    startRoll = 16501, rangeRoll = 10;
+    await saveBranchStudentsinDB(startRoll,rangeRoll, students)
+    console.log("Done 5/6")
+    startRoll = 16601, rangeRoll = 10;
+    await saveBranchStudentsinDB(startRoll,rangeRoll, students)
+    console.log("Done 6/6")
+
     return res.status(200).json({
         data: {
-            students: cse
+            studentsData: students
         },
-        message: "Scrapping Done"
+        message: "Scrapping Done",
     });
 }
 
-module.exports.createBook = async function(req,res){
-	try{
-			let exists = await Book.findOne({
-				name:req.body.name
-			});
-
-			let book = await Book.create(req.body)
-			book.creator = req.user.id;
-			if(exists){
-				book.copyAvailable = true;	
-			}
-			book.save();
-			req.flash('success','Book successfully created !');
-			return res.redirect('/library');
-	}catch(err){
-		console.log(err);
-		req.flash('error','Error while creating book ..');
-		return res.redirect('back');
-	}
-}
