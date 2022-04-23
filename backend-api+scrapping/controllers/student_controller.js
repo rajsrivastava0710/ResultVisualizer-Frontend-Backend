@@ -1,4 +1,3 @@
-
 const Student = require("../models/student")
 
 module.exports.getAllStudentsDetail = async function(req,res) {
