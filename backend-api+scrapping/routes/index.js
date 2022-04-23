@@ -6,8 +6,11 @@ const router = express.Router();
 
 console.log("Home Router loaded");
 
-router.get('/',homeController.home);
+router.get('/', (req, res) => {
+    res.send('Welcome to KNIT Result Visualiser')
+  })
+router.get('/scrapper',homeController.scrapperRoute1);
 
-// router.use('/users',require('./users'));
+router.use('/student',require('./student'));
 
 module.exports = router;

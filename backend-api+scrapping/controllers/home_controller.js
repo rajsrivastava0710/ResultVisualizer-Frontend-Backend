@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
 const Student = require("../models/student")
 
-
 const urlItem = 'https://govexams.com/knit/searchresult.aspx';
 const screenShot = async (roll) => {
 	let res = []
@@ -21,16 +20,22 @@ const screenShot = async (roll) => {
             const isValid = await page.$eval('#txtrollno',element => element.value);
     
             if(isValid.length > 0){
+                let validYearExam = true;
                 await page.evaluate(() => {
-                    document.querySelector('select option:nth-child(2)').selected = true;
-                    })
+                    let examYear = document.querySelector('select option:nth-child(2)')
+                    examYear.selected = true
+                    if(examYear.innerText.substring(0,5) == "BACK"){
+                        validYearExam = false;
+                    }
+                })
+                if(!validYearExam)  continue;
                 await page.click('#btnGo');
                 await page.waitForSelector('#lblrno');
                 const rollNo = await page.$eval('#lblrno',element => element.innerText);
                 obj['rollNumber'] = rollNo;
                 await page.waitForSelector('#lblname');
                 const name = await page.$eval('#lblname',element => element.innerText);
-                obj['Name'] = name;
+                obj['name'] = name;
 
                 let isPercentAvailable = (await page.$('#lbltotlmarksDisp')) || "";
                 if(isPercentAvailable == ""){
@@ -39,7 +44,7 @@ const screenShot = async (roll) => {
                     obj['totalMarks'] = marks;
                     await page.waitForSelector('#lblPrcent');
                     const percent = await page.$eval('#lblPrcent',element => element.innerText);
-                    obj['Percent'] = percent;
+                    obj['percent'] = percent;
                     await res.push(obj);
                 }
             }
@@ -66,25 +71,24 @@ async function saveBranchStudentsinDB(startRoll, rangeRoll, students) {
     studentData = await screenShot(roll);
     let tempStudentData = []
     for(let i=0;i<studentData.length;i++){
-        let percentNumber = Number(studentData[i]['Percent']);
+        let percentNumber = Number(studentData[i]['percent']);
         if(percentNumber>100 || percentNumber<=10) {
             continue;
         }
-        let rollNo = studentData[i]['RollNo'];
+        let rollNo = studentData[i]['rollNumber'];
         let exists = await Student.findOne({
             rollNumber: rollNo 
         });
-        if(!exists ){
+        if(!exists){
             var student = await Student.create(studentData[i])
             student.save()
         }
         tempStudentData.push(studentData[i]);
     }
     students.push(tempStudentData)
-    // students.push(studentData);
 }
 
-module.exports.home = async function(req,res,next){
+module.exports.scrapperRoute1 = async function(req,res,next){
     let students = []
 
     let startRoll = 16101, rangeRoll = 10;
@@ -99,7 +103,7 @@ module.exports.home = async function(req,res,next){
     startRoll = 16401, rangeRoll = 10;
     await saveBranchStudentsinDB(startRoll,rangeRoll, students)
     console.log("Done 4/6")
-    startRoll = 16501, rangeRoll = 10;
+    startRoll = 16243, rangeRoll = 10;
     await saveBranchStudentsinDB(startRoll,rangeRoll, students)
     console.log("Done 5/6")
     startRoll = 16601, rangeRoll = 10;
@@ -113,4 +117,3 @@ module.exports.home = async function(req,res,next){
         message: "Scrapping Done",
     });
 }
-
