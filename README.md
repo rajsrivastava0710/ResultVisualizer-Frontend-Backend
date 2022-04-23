@@ -1,2 +1,2 @@
 # ResultVisualizerFrontend
-Frontend using ReactJS and backend using Node.js for the Result Visualizer project.
+An application which can help visualise and compare data obtained from the KNIT Result website for students/branches/subjects/etc.
