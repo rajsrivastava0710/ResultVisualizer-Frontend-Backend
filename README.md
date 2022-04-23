@@ -1,2 +1,2 @@
 # ResultVisualizerFrontend
-Frontend using ReactJS for the Result Visualizer project.
+Frontend using ReactJS and backend using Node.js for the Result Visualizer project.
