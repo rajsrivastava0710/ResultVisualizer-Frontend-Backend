@@ -90,6 +90,7 @@ export default function StickyHeadTable() {
       }}
     >
       <Select defaultValue="Branch" onChange={handleChangeSelect}>
+        <Option>All</Option>
         <Option>Civil</Option>
         <Option>Computer Science</Option>
         <Option>Electrical</Option>

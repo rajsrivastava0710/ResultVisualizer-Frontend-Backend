@@ -20,6 +20,7 @@ exports.saveBranchStudentsinDB = async function (startRoll, rangeRoll, students)
                 continue;
             }
             let rollNo = studentData[i]['rollNumber'];
+            studentData[i]['branch'] = getBranchFromRollNo(rollNo) 
             let exists = await Student.findOne({
                 rollNumber: rollNo 
             });
@@ -31,7 +32,54 @@ exports.saveBranchStudentsinDB = async function (startRoll, rangeRoll, students)
         }
         students.push(tempStudentData)
     } catch(error) {
-        const errorMessage = `Error while scrapping/adding data to DB : ${err}`;
+        const errorMessage = `Error while scrapping/adding data to DB : ${error}`;
 		console.log(errorMessage);
     }
+}
+
+exports.getBranchCode = function(branch) {
+    let code = 0;
+    if (branch === "Civil") {
+        code = 161;
+    } else if (branch === "Computer Science") {
+        code = 162;
+    } else if (branch === "Electrical") {
+        code = 163;
+    } else if (branch === "Electronics") {
+        code = 164;
+    } else if (branch === "Mechanical") {
+        code = 165;
+    } else if (branch === "Information Technology") {
+        code = 166;
+    }
+    return code;
+}
+
+var getBranchFromRollNo = function(rollNo) { 
+    if(rollNo.length < 5)   return "N/A";
+    var branchCodeDigit = Number(rollNo[2]) % 10;
+    var branch;
+    switch( branchCodeDigit) {
+        case 1:
+            branch = "Civil"
+            break;
+        case 2:
+            branch = "CSE"
+            break;
+        case 3:
+            branch = "Electrical"
+            break;
+        case 4:
+            branch = "Electronics"
+            break;
+        case 5:
+            branch = "Mechanical"
+            break;
+        case 6:
+            branch = "Information Technology"
+            break;
+        default:
+            branch = "N/A"
+    }
+    return branch
 }
