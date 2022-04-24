@@ -14,7 +14,9 @@ import styled from "styled-components";
 
 const columns = [
   { id: "rollNumber", label: "Roll No.", minWidth: 170 },
+  { id: "name", label: "Name", minWidth: 100 },
   { id: "totalMarks", label: "Total Marks", minWidth: 100 },
+  { id: "percent", label: "Aggregate Percentage", minWidth: 100 },
 ];
 
 // function createData(name, code, population, size) {
@@ -57,7 +59,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     sendRequest(
       {
-        url: `${BASE_URL}/students?branch=${queryParam}`,
+        url: `${BASE_URL}/student?branch=${queryParam}`,
       },
       setData
     );

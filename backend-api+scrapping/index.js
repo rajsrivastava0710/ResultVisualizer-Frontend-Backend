@@ -4,7 +4,9 @@ const app = express();
 const puppeteer = require("puppeteer");
 const db = require("./config/mongoose");
 const port = 8000;
+const cors = require("cors");
 
+app.use(cors());
 //EXPRESS router:
 app.use("/", require("./routes"));
 

@@ -73,6 +73,8 @@ module.exports.getAllStudentsDetail = async (req, res, next) => {
       _id: 1,
       rollNumber: 1,
       totalMarks: 1,
+      name: 1,
+      percent: 1,
     });
     return res.status(200).json(students);
   } else {
@@ -80,6 +82,8 @@ module.exports.getAllStudentsDetail = async (req, res, next) => {
       _id: 1,
       rollNumber: 1,
       totalMarks: 1,
+      name: 1,
+      percent: 1,
     });
     return res.status(200).json(students);
   }
