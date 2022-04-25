@@ -138,40 +138,20 @@ exports.screenShot = async (roll) => {
         }
 
         //////////////////////////////////////////Subjects///////////////////
-        // var subject = [String];
-        // 5-13
-        // 15-20
+  
         obj["subject"] = []
         var firstBlockStart = 5
         firstBlockEnd = await findCorrectBlockEnd(firstBlockStart, page)
 
-
-        // while(1) {
-        //   await page.waitForSelector(`#TableMark tbody tr:nth-child(${firstBlockEnd}) td span`);
-        //   const row = await page.$eval(
-        //     `#TableMark tbody tr:nth-child(${firstBlockEnd}) td span`,
-        //     (element) => element.innerText
-        //   );
-        //   if(row.substring(0,19).toLowerCase() == "general proficiency")  break;
-        //   firstBlockEnd += 1
-        // }
         var secondBlockStart = firstBlockEnd+2
         secondBlockEnd = await findCorrectBlockEnd(secondBlockStart, page)
-        // while(1) {
-        //   await page.waitForSelector(`#TableMark tbody tr:nth-child(${secondBlockEnd}) td span`);
-        //   const row = await page.$eval(
-        //     `#TableMark tbody tr:nth-child(${secondBlockEnd}) td span`,
-        //     (element) => element.innerText
-        //   );
-        //   if(row.substring(0,19).toLowerCase() == "general proficiency")  break;
-        //   secondBlockEnd += 1
-        // }
-        
+  
         await populateSubjectData(firstBlockStart, firstBlockEnd, obj, page)
         await populateSubjectData(secondBlockStart, secondBlockEnd, obj, page)
 
         await res.push(obj);
 
+        ////////////////////////////////////////////////////////////////////////
 
       }
     } catch (err) {
@@ -200,7 +180,6 @@ async function populateSubjectData(startRoll, endRoll, obj, page) {
 
 async function findCorrectBlockEnd(blockEnd, page) {
   while(1) {
-    console.log(blockEnd)
     await page.waitForSelector(`#TableMark tbody tr:nth-child(${blockEnd}) td span`);
     const row = await page.$eval(
       `#TableMark tbody tr:nth-child(${blockEnd}) td span`,

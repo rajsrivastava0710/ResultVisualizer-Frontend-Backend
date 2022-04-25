@@ -38,12 +38,12 @@ const studentSchema = new mongoose.Schema({
     //Array of 8 semsters, each having objects with Subject 
     // Name as key and array of sem and practical marks as value of that key
     subject: [[String]],
-	semsterSubjects: [[
+	semsterSubjects: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Subject'
         }
-    ]],
+    ],
 },{
 	timestamps: true
 });
