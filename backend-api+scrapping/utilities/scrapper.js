@@ -135,8 +135,24 @@ exports.screenShot = async (roll) => {
             (element) => element.innerText
           );
           obj["percent"] = percent;
-          await res.push(obj);
         }
+
+        //////////////////////////////////////////Subjects///////////////////
+  
+        obj["subject"] = []
+        var firstBlockStart = 5
+        firstBlockEnd = await findCorrectBlockEnd(firstBlockStart, page)
+
+        var secondBlockStart = firstBlockEnd+2
+        secondBlockEnd = await findCorrectBlockEnd(secondBlockStart, page)
+  
+        await populateSubjectData(firstBlockStart, firstBlockEnd, obj, page)
+        await populateSubjectData(secondBlockStart, secondBlockEnd, obj, page)
+
+        await res.push(obj);
+
+        ////////////////////////////////////////////////////////////////////////
+
       }
     } catch (err) {
       console.log(err);
@@ -146,3 +162,31 @@ exports.screenShot = async (roll) => {
   await browser.close();
   return res;
 };
+
+async function populateSubjectData(startRoll, endRoll, obj, page) {
+  for(var row = startRoll;row <= endRoll;row++) {
+    await page.waitForSelector(`#TableMark tbody tr:nth-child(${row}) td span`);
+    var rowData = []
+    for(var col = 1;col <= 6;col++) {
+      const items = await page.$eval(
+        `#TableMark tbody tr:nth-child(${row}) td:nth-of-type(${col}) span`,
+        (element) => element.innerText
+      )
+      rowData.push(items)
+    }
+    obj["subject"].push(rowData); 
+  }
+}
+
+async function findCorrectBlockEnd(blockEnd, page) {
+  while(1) {
+    await page.waitForSelector(`#TableMark tbody tr:nth-child(${blockEnd}) td span`);
+    const row = await page.$eval(
+      `#TableMark tbody tr:nth-child(${blockEnd}) td span`,
+      (element) => element.innerText
+    );
+    if(row.substring(0,19).toLowerCase() == "general proficiency")  break;
+    blockEnd += 1
+  }
+  return blockEnd
+}

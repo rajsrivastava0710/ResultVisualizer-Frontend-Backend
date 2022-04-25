@@ -1,5 +1,6 @@
 const mainHelper = require("../helpers/mainHelper");
 const Student = require("../models/student");
+const Subject = require("../models/subject");
 
 // module.exports.getAllStudentsDetail = async function (req, res) {
 //   try {
@@ -39,12 +40,13 @@ module.exports.getStudentDataByRollNo = async function (req, res) {
 
 module.exports.deleteAllStudents = async function (req, res) {
   try {
-    let comment = await Student.deleteMany();
+    let students = await Student.deleteMany();
+    let subjects = await Subject.deleteMany();
     return res.status(200).json({
       message: "All Students deleted",
     });
   } catch (err) {
-    const errorMessage = `Error deleting students : ${err}`;
+    const errorMessage = `Error deleting students/subjects : ${err}`;
     console.log(errorMessage);
     return res.status(404).json({
       error: errorMessage,

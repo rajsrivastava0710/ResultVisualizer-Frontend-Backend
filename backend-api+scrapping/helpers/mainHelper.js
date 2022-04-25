@@ -1,5 +1,7 @@
 const scrapper = require("../utilities/scrapper")
 const Student = require("../models/student")
+const Subject = require("../models/subject")
+const { addListener } = require("../models/student")
 
 function populateRoll(roll,startRoll,rangeRoll){
     for(let rollNo = startRoll; rollNo < startRoll + rangeRoll; rollNo++){
@@ -7,7 +9,7 @@ function populateRoll(roll,startRoll,rangeRoll){
     }
 }
 
-exports.saveBranchStudentsinDB = async function (startRoll, rangeRoll, students) {
+exports.saveBranchStudentsinDB =  async function (startRoll, rangeRoll, students) {
     try {
         let roll = []
         populateRoll(roll,startRoll,rangeRoll);
@@ -24,13 +26,30 @@ exports.saveBranchStudentsinDB = async function (startRoll, rangeRoll, students)
             let exists = await Student.findOne({
                 rollNumber: rollNo 
             });
-            var student;
-            if(!exists){
-                student = await Student.create(studentData[i])
-            } else {
-                student = await Student.findOneAndUpdate({rollNumber: rollNo},studentData[i])
-            }
-            student.save();
+            
+            var listOfSubjectObject = studentData[i]["subject"]
+            delete studentData[i]["subject"]
+
+            await Subject.deleteMany({rollNo: rollNo})
+            await Student.findOneAndDelete({rollNumber: rollNo})
+
+            var student = await Student.create(studentData[i])  
+
+            for (var idx = 0; idx < listOfSubjectObject.length; idx++) {
+                singleSubject = {}
+                if(validSubjectItem(listOfSubjectObject[idx][0]))    singleSubject["name"] = listOfSubjectObject[idx][0];
+                if(validSubjectItem(listOfSubjectObject[idx][1]))    singleSubject["writtenMax"] = listOfSubjectObject[idx][1];
+                if(validSubjectItem(listOfSubjectObject[idx][3]))    singleSubject["writtenObtained"] = listOfSubjectObject[idx][3];
+                if(validSubjectItem(listOfSubjectObject[idx][2]))    singleSubject["sessionalMax"] = listOfSubjectObject[idx][2];
+                if(validSubjectItem(listOfSubjectObject[idx][5]))    singleSubject["sessionalObtained"] = listOfSubjectObject[idx][5];
+                singleSubject["rollNo"] = rollNo
+                var subject = await Subject.create(singleSubject)
+                student.semesterSubjects.push(subject)
+            } 
+
+            student.save()
+            
+            studentData[i]["semesterSubjects"] = listOfSubjectObject
             tempStudentData.push(studentData[i]);
         }
         students.push(tempStudentData)
@@ -85,4 +104,9 @@ var getBranchFromRollNo = function(rollNo) {
             branch = "N/A"
     }
     return branch
+}
+
+function validSubjectItem(item) {
+    if(item.length > 0 && item != "---")    return true
+    return false
 }
