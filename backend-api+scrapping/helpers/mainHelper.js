@@ -27,17 +27,14 @@ exports.saveBranchStudentsinDB =  async function (startRoll, rangeRoll, students
                 rollNumber: rollNo 
             });
             
+            var listOfSubjectObject = studentData[i]["subject"]
+            delete studentData[i]["subject"]
+
             await Subject.deleteMany({rollNo: rollNo})
             await Student.findOneAndDelete({rollNumber: rollNo})
-            ///////////////////////////////////////////////////////
 
-            var student = await Student.create(studentData[i])     
-            // student = await Student.findOne({rollNo: rollNo})
-            var listOfSubjectObject = studentData[i]["subject"]
-            // student.semesterSubjects = []
-            student.save()
-            // console.log(listOfSubjectObject)
-            // listOfSubjectObject.forEach(async element => {
+            var student = await Student.create(studentData[i])  
+
             for (var idx = 0; idx < listOfSubjectObject.length; idx++) {
                 singleSubject = {}
                 if(validSubjectItem(listOfSubjectObject[idx][0]))    singleSubject["name"] = listOfSubjectObject[idx][0];
@@ -47,17 +44,12 @@ exports.saveBranchStudentsinDB =  async function (startRoll, rangeRoll, students
                 if(validSubjectItem(listOfSubjectObject[idx][5]))    singleSubject["sessionalObtained"] = listOfSubjectObject[idx][5];
                 singleSubject["rollNo"] = rollNo
                 var subject = await Subject.create(singleSubject)
-                // console.log(subject)
                 student.semesterSubjects.push(subject)
             } 
-                
-                // console.log(subject)
-                await student.save()
-            // });
-            console.log(student.semesterSubjects)
-            // await student.save()
 
-        
+            student.save()
+            
+            studentData[i]["semesterSubjects"] = listOfSubjectObject
             tempStudentData.push(studentData[i]);
         }
         students.push(tempStudentData)
