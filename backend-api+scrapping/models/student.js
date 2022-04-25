@@ -37,6 +37,7 @@ const studentSchema = new mongoose.Schema({
     yearWisepassingStatus:[String],
     //Array of 8 semsters, each having objects with Subject 
     // Name as key and array of sem and practical marks as value of that key
+    subject: [[String]],
 	semsterSubjects: [[
         {
             type: mongoose.Schema.Types.ObjectId,
