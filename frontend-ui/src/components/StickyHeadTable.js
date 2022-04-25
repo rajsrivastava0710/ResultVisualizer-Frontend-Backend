@@ -63,6 +63,7 @@ export default function StickyHeadTable() {
       },
       setData
     );
+    setPage(0);
   }, [queryParam]);
 
   console.log(queryParam);
@@ -96,7 +97,7 @@ export default function StickyHeadTable() {
         <Option>Electrical</Option>
         <Option>Electronics</Option>
         <Option>Mechanical</Option>
-        <Option>IT</Option>
+        <Option>Information Technology</Option>
       </Select>
       {isLoading && <h1>Loading</h1>}
       {!isLoading && data && (
