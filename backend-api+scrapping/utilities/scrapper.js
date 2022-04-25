@@ -25,6 +25,7 @@ exports.screenShot = async (roll) => {
       if (isValid.length > 0) {
         let validYearExam = true;
         await page.evaluate(() => {
+          //why 2nd child, bcs first child is the text SELECT in the dropdown and 2nd is the latest result
           let examYear = document.querySelector("select option:nth-child(2)");
           examYear.selected = true;
           if (examYear.innerText.substring(0, 5) == "BACK") {
@@ -39,12 +40,86 @@ exports.screenShot = async (roll) => {
           (element) => element.innerText
         );
         obj["rollNumber"] = rollNo;
+
         await page.waitForSelector("#lblname");
         const name = await page.$eval(
           "#lblname",
           (element) => element.innerText
         );
         obj["name"] = name;
+
+        await page.waitForSelector("#lblfname");
+        const fatherName = await page.$eval(
+          "#lblfname",
+          (element) => element.innerText
+        );
+        obj["fatherName"] = fatherName;
+
+        await page.waitForSelector("#lblEntry");
+        const studentType = await page.$eval(
+          "#lblEntry",
+          (element) => element.innerText
+        );
+        obj["studentType"] = studentType;
+
+        await page.waitForSelector("#lblbranch");
+        const courseBranch = await page.$eval(
+          "#lblbranch",
+          (element) => element.innerText
+        );
+        if(courseBranch.length > 0) {
+          obj["course"] = courseBranch.split("/")[0].trim()
+        }
+
+        await page.waitForSelector("#lblDeclare");
+        const resultDate = await page.$eval(
+          "#lblDeclare",
+          (element) => element.innerText
+        );
+        if(resultDate.length > 4) {
+          obj["passingYear"] = resultDate.substr(resultDate.length - 4);
+        }
+
+        // All 4 years marks and passing status
+        ///////////////////////////////////////////////////////
+        var yearWiseMarks = [], yearWisePassStatus = []
+        var yearConnector = ["1st","2nd","3rd","4th"]
+        for(var year=1;year<=4;year++) {
+          await page.waitForSelector(`#lbl${yearConnector[year-1]}YearMrk`);
+          const marks = await page.$eval(
+            `#lbl${yearConnector[year-1]}YearMrk`,
+            (element) => element.innerText
+          );
+          if(marks.length == 0) {
+            yearWiseMarks.push("N/A")
+          } else {
+            yearWiseMarks.push(marks);
+          }
+          ///////////////////////////////////////////////////////////
+          await page.waitForSelector(`#lbl${yearConnector[year-1]}YearStat`);
+          const status = await page.$eval(
+            `#lbl${yearConnector[year-1]}YearStat`,
+            (element) => element.innerText
+          );
+          if(status.length == 0) {
+            yearWisePassStatus.push("N/A")
+          } else {
+            yearWisePassStatus.push(status);
+          }
+        }
+        obj["yearWiseMarks"] = yearWiseMarks
+        obj["yearWisepassingStatus"] = yearWisePassStatus
+        //////////////////////////////////////////////////////////////
+
+        await page.waitForSelector("#lblDiv");
+        const division = await page.$eval(
+          "#lblDiv",
+          (element) => element.innerText
+        );
+        obj["division"] = "N/A"
+        if(division.length > 0) {
+          obj["division"] = division
+        }
 
         let isPercentAvailable = (await page.$("#lbltotlmarksDisp")) || "";
         if (isPercentAvailable == "") {

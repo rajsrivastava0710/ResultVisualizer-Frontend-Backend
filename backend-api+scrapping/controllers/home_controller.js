@@ -6,7 +6,7 @@ module.exports.scrapperRoute1 = async function (req, res, next) {
   let startRoll = 16101, rangeRoll = 10;
 //   await mainHelper.saveBranchStudentsinDB(startRoll, rangeRoll, students);
 //   console.log("Done 1/6");
-  startRoll = 16201, rangeRoll = 10;
+  startRoll = 16240, rangeRoll = 20;
   await mainHelper.saveBranchStudentsinDB(startRoll, rangeRoll, students);
   console.log("Done 2/6");
 //   startRoll = 16301, rangeRoll = 10;

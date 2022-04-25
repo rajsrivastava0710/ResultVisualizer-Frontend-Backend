@@ -24,10 +24,13 @@ exports.saveBranchStudentsinDB = async function (startRoll, rangeRoll, students)
             let exists = await Student.findOne({
                 rollNumber: rollNo 
             });
+            var student;
             if(!exists){
-                var student = await Student.create(studentData[i])
-                student.save()
+                student = await Student.create(studentData[i])
+            } else {
+                student = await Student.findOneAndUpdate({rollNumber: rollNo},studentData[i])
             }
+            student.save();
             tempStudentData.push(studentData[i]);
         }
         students.push(tempStudentData)
@@ -61,19 +64,19 @@ var getBranchFromRollNo = function(rollNo) {
     var branch;
     switch( branchCodeDigit) {
         case 1:
-            branch = "Civil"
+            branch = "Civil Engineering"
             break;
         case 2:
-            branch = "CSE"
+            branch = "Computer Science Engineering"
             break;
         case 3:
-            branch = "Electrical"
+            branch = "Electrical Engineering"
             break;
         case 4:
-            branch = "Electronics"
+            branch = "Electronics Engineering"
             break;
         case 5:
-            branch = "Mechanical"
+            branch = "Mechanical Engineering"
             break;
         case 6:
             branch = "Information Technology"
