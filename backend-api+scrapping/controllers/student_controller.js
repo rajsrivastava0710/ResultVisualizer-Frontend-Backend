@@ -1,3 +1,4 @@
+const mainHelper = require("../helpers/mainHelper");
 const Student = require("../models/student");
 
 // module.exports.getAllStudentsDetail = async function (req, res) {
@@ -52,39 +53,38 @@ module.exports.deleteAllStudents = async function (req, res) {
 };
 
 module.exports.getAllStudentsDetail = async (req, res, next) => {
-  const branch = req.query.branch;
-  let code;
-  if (branch === "Civil") {
-    code = 161;
-  } else if (branch === "Computer Science") {
-    code = 162;
-  } else if (branch === "Electrical") {
-    code = 163;
-  } else if (branch === "Electronics") {
-    code = 164;
-  } else if (branch === "Mechanical") {
-    code = 165;
-  } else if (branch === "Information Technology") {
-    code = 166;
+  try {
+    const branch = req.query.branch;
+    let code = mainHelper.getBranchCode(branch)
+
+    if (code > 0) {
+      const regexp = new RegExp("^" + code);
+      const students = await Student.find({ rollNumber: regexp }).select({
+        _id: 1,
+        rollNumber: 1,
+        totalMarks: 1,
+        name: 1,
+        percent: 1,
+        branch: 1
+      });
+      return res.status(200).json(students);
+    } else {
+      const students = await Student.find({}).select({
+        _id: 1,
+        rollNumber: 1,
+        totalMarks: 1,
+        name: 1,
+        percent: 1,
+        branch: 1
+      });
+      return res.status(200).json(students);
+    }
+  } catch(error) {
+      const errorMessage = `Error on retrieving students : ${err}`;
+      console.log(errorMessage);
+      return res.status(404).json({
+        error: errorMessage,
+      });
   }
-  if (code) {
-    const regexp = new RegExp("^" + code);
-    const students = await Student.find({ rollNumber: regexp }).select({
-      _id: 1,
-      rollNumber: 1,
-      totalMarks: 1,
-      name: 1,
-      percent: 1,
-    });
-    return res.status(200).json(students);
-  } else {
-    const students = await Student.find({}).select({
-      _id: 1,
-      rollNumber: 1,
-      totalMarks: 1,
-      name: 1,
-      percent: 1,
-    });
-    return res.status(200).json(students);
-  }
+  
 };
