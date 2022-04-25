@@ -33,18 +33,6 @@ const studentSchema = new mongoose.Schema({
     totalMarks:{
         type: String
     },
-    // firstYearMarks:{
-    //     type: String
-    // },
-    // secondYearMarks:{
-    //     type: String
-    // },
-    // thirdYearMarks:{
-    //     type: String
-    // },
-    // forthYearMarks:{
-    //     type: String
-    // },
     yearWiseMarks: [String],
     yearWisepassingStatus:[String],
     //Array of 8 semsters, each having objects with Subject 
