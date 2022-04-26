@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,6 +11,7 @@ import useHttp from "../custom_hooks/useHttp";
 import { BASE_URL } from "../constants";
 import { Box } from "@mui/system";
 import styled from "styled-components";
+import { Input, TextField } from "@mui/material";
 
 const columns = [
   { id: "rollNumber", label: "Roll No.", minWidth: 170 },
@@ -49,24 +50,30 @@ const Select = styled.select`
 
 const Option = styled.option``;
 
-export default function StickyHeadTable() {
+export default function StickyHeadTable({ tableData, setBranch }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [data, setData] = useState();
-  const { isLoading, error, sendRequest } = useHttp();
-  const [queryParam, setQueryParam] = useState();
+  const [data, setData] = useState(tableData);
+  const [studentName, setStudentName] = useState();
+  const inputElement = useRef();
 
   useEffect(() => {
-    sendRequest(
-      {
-        url: `${BASE_URL}/student?branch=${queryParam}`,
-      },
-      setData
-    );
-    setPage(0);
-  }, [queryParam]);
-
-  console.log(queryParam);
+    if (inputElement.current.value) {
+      let tempData = tableData;
+      setData(
+        tempData.filter(({ name, rollNumber }) => {
+          if (isNaN(+inputElement.current.value)) {
+            console.log(inputElement.current.value);
+            return name.includes(inputElement.current.value);
+          } else {
+            return rollNumber.startsWith(inputElement.current.value);
+          }
+        })
+      );
+    } else {
+      setData(tableData);
+    }
+  }, [studentName, tableData]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -78,7 +85,11 @@ export default function StickyHeadTable() {
   };
 
   const handleChangeSelect = (event) => {
-    setQueryParam(event.target.value);
+    setBranch(event.target.value);
+  };
+
+  const handleInputChange = (event) => {
+    setStudentName(event.target.value);
   };
 
   return (
@@ -99,8 +110,21 @@ export default function StickyHeadTable() {
         <Option>Mechanical</Option>
         <Option>Information Technology</Option>
       </Select>
-      {isLoading && <h1>Loading</h1>}
-      {!isLoading && data && (
+      {/* <Input
+        placeholder="Search"
+        onChange={handleInputChange}
+        value={studentName}
+        ref={inputElement}
+      /> */}
+      <TextField
+        id="outlined-basic"
+        label="Search"
+        variant="outlined"
+        onChange={handleInputChange}
+        value={studentName}
+        inputRef={inputElement}
+      />
+      {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
@@ -118,30 +142,29 @@ export default function StickyHeadTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data &&
-                  data
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row._id}
-                        >
-                          {columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    })}
+                {data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row._id}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
@@ -155,7 +178,7 @@ export default function StickyHeadTable() {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Paper>
-      )}
+      }
     </Box>
   );
 }
