@@ -72,12 +72,12 @@ module.exports.getAllStudentsDetail = async (req, res, next) => {
       return res.status(200).json(students);
     } else {
       const students = await Student.find({}).select({
-        _id: 1,
-        rollNumber: 1,
-        totalMarks: 1,
-        name: 1,
-        percent: 1,
-        branch: 1
+        // _id: 1,
+        // rollNumber: 1,
+        // totalMarks: 1,
+        // name: 1,
+        // percent: 1,
+        // branch: 1
       });
       return res.status(200).json(students);
     }
