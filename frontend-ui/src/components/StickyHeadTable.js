@@ -64,7 +64,7 @@ export default function StickyHeadTable({ tableData, setBranch }) {
 
     if (selectElement.current.value === "Percentage") {
       tempData.sort(function (a, b) {
-        return a.percent - b.percent;
+        return a.percent - b.percent == 0 ? a.rollNumber - b.rollNumber : b.percent - a.percent ;
       });
     } else {
       tempData.sort(function (a, b) {
@@ -96,6 +96,7 @@ export default function StickyHeadTable({ tableData, setBranch }) {
 
   const handleChangeSelect = (event) => {
     setBranch(event.target.value);
+    setPage(0);
   };
 
   const handleInputChange = (event) => {
@@ -140,7 +141,7 @@ export default function StickyHeadTable({ tableData, setBranch }) {
       />
 
       <Select defaultValue="Sort By" onChange={handleSort} ref={selectElement}>
-        <Option>Name</Option>
+        <Option>Roll Number</Option>
         <Option>Percentage</Option>
       </Select>
       {
