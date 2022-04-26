@@ -55,25 +55,35 @@ export default function StickyHeadTable({ tableData, setBranch }) {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [data, setData] = useState(tableData);
   const [studentName, setStudentName] = useState();
+  const [sortBy, setSortBy] = useState("Name");
   const inputElement = useRef();
+  const selectElement = useRef();
 
   useEffect(() => {
-    if (inputElement.current.value) {
-      let tempData = tableData;
-      setData(
-        tempData.filter(({ name, rollNumber }) => {
-          if (isNaN(+inputElement.current.value)) {
-            console.log(inputElement.current.value);
-            return name.includes(inputElement.current.value);
-          } else {
-            return rollNumber.startsWith(inputElement.current.value);
-          }
-        })
-      );
+    let tempData = tableData;
+
+    if (selectElement.current.value === "Percentage") {
+      tempData.sort(function (a, b) {
+        return a.percent - b.percent;
+      });
     } else {
-      setData(tableData);
+      tempData.sort(function (a, b) {
+        return a.rollNumber - b.rollNumber;
+      });
     }
-  }, [studentName, tableData]);
+
+    if (inputElement.current.value) {
+      tempData = tempData.filter(({ name, rollNumber }) => {
+        if (isNaN(+inputElement.current.value)) {
+          console.log(inputElement.current.value);
+          return name.includes(inputElement.current.value);
+        } else {
+          return rollNumber.startsWith(inputElement.current.value);
+        }
+      });
+    }
+    setData([...tempData]);
+  }, [studentName, tableData, sortBy]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -90,6 +100,10 @@ export default function StickyHeadTable({ tableData, setBranch }) {
 
   const handleInputChange = (event) => {
     setStudentName(event.target.value);
+  };
+
+  const handleSort = (event) => {
+    setSortBy(event.target.value);
   };
 
   return (
@@ -117,13 +131,18 @@ export default function StickyHeadTable({ tableData, setBranch }) {
         ref={inputElement}
       /> */}
       <TextField
-        id="outlined-basic"
+        id="standard-basic"
         label="Search"
-        variant="outlined"
+        variant="standard"
         onChange={handleInputChange}
         value={studentName}
         inputRef={inputElement}
       />
+
+      <Select defaultValue="Sort By" onChange={handleSort} ref={selectElement}>
+        <Option>Name</Option>
+        <Option>Percentage</Option>
+      </Select>
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>

@@ -19,7 +19,11 @@ const Home = () => {
     <div>
       <h1>Hello world</h1>
       {table1Data && (
-        <StickyHeadTable tableData={table1Data} setBranch={setQueryParam} />
+        <StickyHeadTable
+          tableData={table1Data}
+          setBranch={setQueryParam}
+          branch={queryParam}
+        />
       )}
     </div>
   );
