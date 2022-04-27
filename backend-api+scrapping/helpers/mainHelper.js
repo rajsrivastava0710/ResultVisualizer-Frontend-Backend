@@ -3,10 +3,16 @@ const Student = require("../models/student")
 const Subject = require("../models/subject")
 const { addListener } = require("../models/student")
 
+const badRoll = new Set(["16209","16317","16323","16331","16410","16422","16424","16454","16457"]);
+
 function populateRoll(roll,startRoll,rangeRoll){
     for(let rollNo = startRoll; rollNo < startRoll + rangeRoll; rollNo++){
         roll.push(String(rollNo))
     }
+}
+
+exports.isItABadEntry = function (rollNo) {
+    return badRoll.has(rollNo)
 }
 
 exports.saveBranchStudentsinDB =  async function (startRoll, rangeRoll, students) {
@@ -44,6 +50,7 @@ exports.saveBranchStudentsinDB =  async function (startRoll, rangeRoll, students
                 if(validSubjectItem(listOfSubjectObject[idx][3]))    singleSubject["writtenObtained"] = listOfSubjectObject[idx][3];
                 if(validSubjectItem(listOfSubjectObject[idx][2]))    singleSubject["sessionalMax"] = listOfSubjectObject[idx][2];
                 if(validSubjectItem(listOfSubjectObject[idx][5]))    singleSubject["sessionalObtained"] = listOfSubjectObject[idx][5];
+                if(validSubjectItem(listOfSubjectObject[idx][4]))    singleSubject["back"] = listOfSubjectObject[idx][4];
                 singleSubject["rollNo"] = rollNo
                 var subject = await Subject.create(singleSubject)
                 student.semesterSubjects.push(subject)
