@@ -8,4 +8,6 @@ console.log('Visualise router loaded');
 
 router.get('/rollPercent',visualiseController.getListWithRollNumberAndDivision);
 
+router.get('/branchBubble',visualiseController.getListWithBranchAndAveragePercent);
+
 module.exports = router;
