@@ -14,7 +14,6 @@ module.exports.getListWithRollNumberAndDivision = async (req, res, next) => {
       rollNumber: 1,
       division: 1,
     });
-    console.log(students.length);
 
     var dict = {};
     var rollDivisionArray = [[String]];
@@ -29,6 +28,7 @@ module.exports.getListWithRollNumberAndDivision = async (req, res, next) => {
     rollDivisionArray[0] = ["Roll Number", "Division"];
 
     return res.status(200).json(rollDivisionArray);
+  
   } catch (error) {
     console.log(errorMessage(error));
     return res.status(404).json({
@@ -51,9 +51,8 @@ module.exports.getListWithBranchAndAveragePercent = async (req, res, next) => {
     var branchStudentCount = {};
     students.forEach((student) => {
       if (!isNaN(student.percent)) {
-        console.log("Entered");
         var payload = 0;
-        if (student.percent > 33) payload = 1;
+        if (student.percent > 40) payload = 1;
         if (branchData[student.branch] == undefined) {
           branchData[student.branch] = [
             Number(student.percent),
