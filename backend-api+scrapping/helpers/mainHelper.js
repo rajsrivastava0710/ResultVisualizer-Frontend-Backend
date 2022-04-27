@@ -26,13 +26,15 @@ exports.saveBranchStudentsinDB =  async function (startRoll, rangeRoll, students
             let exists = await Student.findOne({
                 rollNumber: rollNo 
             });
+
+            studentData[i]["branchCode"] = rollNo.substring(0,3)
             
             var listOfSubjectObject = studentData[i]["subject"]
             delete studentData[i]["subject"]
 
             await Subject.deleteMany({rollNo: rollNo})
             await Student.findOneAndDelete({rollNumber: rollNo})
-
+            
             var student = await Student.create(studentData[i])  
 
             for (var idx = 0; idx < listOfSubjectObject.length; idx++) {
@@ -61,17 +63,17 @@ exports.saveBranchStudentsinDB =  async function (startRoll, rangeRoll, students
 
 exports.getBranchCode = function(branch) {
     let code = 0;
-    if (branch === "Civil") {
+    if (branch == "Civil") {
         code = 161;
-    } else if (branch === "Computer Science") {
+    } else if (branch == "Computer Science") {
         code = 162;
-    } else if (branch === "Electrical") {
+    } else if (branch == "Electrical") {
         code = 163;
-    } else if (branch === "Electronics") {
+    } else if (branch == "Electronics") {
         code = 164;
-    } else if (branch === "Mechanical") {
+    } else if (branch == "Mechanical") {
         code = 165;
-    } else if (branch === "Information Technology") {
+    } else if (branch == "Information Technology") {
         code = 166;
     }
     return code;

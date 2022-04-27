@@ -4,7 +4,7 @@ const urlItem = "https://govexams.com/knit/searchresult.aspx";
 exports.screenShot = async (roll) => {
   let res = [];
   //turn the headless to false, if you dont want to see the scarpping gui
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: false, ignoreHTTPSErrors: true});
   const page = await browser.newPage();
 
   for (let i = 0; i < roll.length; i++) {
