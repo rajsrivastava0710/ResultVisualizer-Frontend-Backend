@@ -11,7 +11,14 @@ import useHttp from "../custom_hooks/useHttp";
 import { BASE_URL } from "../constants";
 import { Box } from "@mui/system";
 import styled from "styled-components";
-import { Input, TextField } from "@mui/material";
+import {
+  FormControl,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 
 const columns = [
   { id: "rollNumber", label: "Roll No.", minWidth: 170 },
@@ -20,51 +27,36 @@ const columns = [
   { id: "percent", label: "Aggregate Percentage", minWidth: 100 },
 ];
 
-// function createData(name, code, population, size) {
-//   const density = population / size;
-//   return { name, code, population, size, density };
-// }
-
-// const rows = [
-//   createData("India", "IN", 1324171354, 3287263),
-//   createData("China", "CN", 1403500365, 9596961),
-//   createData("Italy", "IT", 60483973, 301340),
-//   createData("United States", "US", 327167434, 9833520),
-//   createData("Canada", "CA", 37602103, 9984670),
-//   createData("Australia", "AU", 25475400, 7692024),
-//   createData("Germany", "DE", 83019200, 357578),
-//   createData("Ireland", "IE", 4857000, 70273),
-//   createData("Mexico", "MX", 126577691, 1972550),
-//   createData("Japan", "JP", 126317000, 377973),
-//   createData("France", "FR", 67022000, 640679),
-//   createData("United Kingdom", "GB", 67545757, 242495),
-//   createData("Russia", "RU", 146793744, 17098246),
-//   createData("Nigeria", "NG", 200962417, 923768),
-//   createData("Brazil", "BR", 210147125, 8515767),
-// ];
-
-const Select = styled.select`
-  padding: 10px;
-  margin: 20px;
-`;
+// const Select = styled.select`
+//   padding: 10px;
+//   margin: 20px;
+// `;
 
 const Option = styled.option``;
 
-export default function StickyHeadTable({ tableData, setBranch }) {
+export default function StickyHeadTable({ tableData, setBranch, branch }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [data, setData] = useState(tableData);
-  const [studentName, setStudentName] = useState();
-  const [sortBy, setSortBy] = useState("Name");
+  const [studentName, setStudentName] = useState("");
+  const [sortBy, setSortBy] = useState("Roll Number");
   const inputElement = useRef();
   const selectElement = useRef();
 
   useEffect(() => {
     let tempData = tableData;
 
-    if (selectElement.current.value === "Percentage") {
+    if (sortBy === "Percentage") {
       tempData.sort(function (a, b) {
-        return a.percent - b.percent == 0 ? a.rollNumber - b.rollNumber : b.percent - a.percent ;
+        if (isNaN(+a.percent)) {
+          return 1;
+        } else if (isNaN(+b.percent)) {
+          return -1;
+        } else {
+          return a.percent - b.percent == 0
+            ? a.rollNumber - b.rollNumber
+            : b.percent - a.percent;
+        }
       });
     } else {
       tempData.sort(function (a, b) {
@@ -75,7 +67,6 @@ export default function StickyHeadTable({ tableData, setBranch }) {
     if (inputElement.current.value) {
       tempData = tempData.filter(({ name, rollNumber }) => {
         if (isNaN(+inputElement.current.value)) {
-          console.log(inputElement.current.value);
           return name.includes(inputElement.current.value);
         } else {
           return rollNumber.startsWith(inputElement.current.value);
@@ -116,21 +107,6 @@ export default function StickyHeadTable({ tableData, setBranch }) {
         backgroundColor: "primary.dark",
       }}
     >
-      <Select defaultValue="Branch" onChange={handleChangeSelect}>
-        <Option>All</Option>
-        <Option>Civil</Option>
-        <Option>Computer Science</Option>
-        <Option>Electrical</Option>
-        <Option>Electronics</Option>
-        <Option>Mechanical</Option>
-        <Option>Information Technology</Option>
-      </Select>
-      {/* <Input
-        placeholder="Search"
-        onChange={handleInputChange}
-        value={studentName}
-        ref={inputElement}
-      /> */}
       <TextField
         id="standard-basic"
         label="Search"
@@ -140,10 +116,35 @@ export default function StickyHeadTable({ tableData, setBranch }) {
         inputRef={inputElement}
       />
 
-      <Select defaultValue="Sort By" onChange={handleSort} ref={selectElement}>
-        <Option>Roll Number</Option>
-        <Option>Percentage</Option>
-      </Select>
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="demo-select-small">Branch</InputLabel>
+        <Select
+          labelId="demo-select-small"
+          id="demo-select-small"
+          value={branch}
+          label="Branch"
+          onChange={handleChangeSelect}
+        >
+          <MenuItem value="All">ALL</MenuItem>
+          <MenuItem value="Civil">Civil</MenuItem>
+          <MenuItem value="Computer Science">Computer Science</MenuItem>
+          <MenuItem value="Electrical">Electrical</MenuItem>
+        </Select>
+      </FormControl>
+
+      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+        <InputLabel id="demo-select-small">Sort By</InputLabel>
+        <Select
+          labelId="demo-select-small"
+          id="demo-select-small"
+          value={sortBy}
+          label="Sort By"
+          onChange={handleSort}
+        >
+          <MenuItem value="Roll Number">Roll Number</MenuItem>
+          <MenuItem value="Percentage">Percentage</MenuItem>
+        </Select>
+      </FormControl>
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
