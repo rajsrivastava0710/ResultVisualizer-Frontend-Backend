@@ -48,9 +48,15 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
 
     if (sortBy === "Percentage") {
       tempData.sort(function (a, b) {
-        return a.percent - b.percent == 0
-          ? a.rollNumber - b.rollNumber
-          : b.percent - a.percent;
+        if (isNaN(+a.percent)) {
+          return 1;
+        } else if (isNaN(+b.percent)) {
+          return -1;
+        } else {
+          return a.percent - b.percent == 0
+            ? a.rollNumber - b.rollNumber
+            : b.percent - a.percent;
+        }
       });
     } else {
       tempData.sort(function (a, b) {
