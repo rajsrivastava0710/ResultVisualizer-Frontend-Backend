@@ -20,6 +20,10 @@ const subjectSchema = new mongoose.Schema({
     },
     sessionalObtained:{
         type: String
+    },
+    back: {
+        type: String,
+        default: "-"
     }
 });
 

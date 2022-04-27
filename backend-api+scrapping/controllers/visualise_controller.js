@@ -19,8 +19,8 @@ module.exports.getListWithRollNumberAndDivision = async (req, res, next) => {
       var dict = {}
       var rollDivisionArray = [[String]]
       students.forEach(student => {
-        if(dict["division"] === undefined)  dict["division"] = 1;
-        else dict[student.division] += 1
+        if(dict[student.division] === undefined)  dict["division"] = Number(1);
+        else dict[student.division] += Number(1)
       })
 
       for (var division in dict){
