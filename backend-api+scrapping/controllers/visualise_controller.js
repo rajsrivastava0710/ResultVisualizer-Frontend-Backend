@@ -42,8 +42,8 @@ module.exports.getListWithBranchAndAveragePercent = async (req, res, next) => {
     var students = await Student.find().select({
       percent: 1,
       branch: 1,
+      rollNumber: 1
     });
-    //   return res.status(200).json(students)
     var total = 0,
       sum = 0,
       x = 0;
@@ -62,26 +62,30 @@ module.exports.getListWithBranchAndAveragePercent = async (req, res, next) => {
           branchData[student.branch][0] += Number(student.percent);
           branchData[student.branch][1] += Number(payload);
         }
-        console.log(student.percent);
       }
       if (branchStudentCount[student.branch] == undefined) {
-        branchStudentCount[student.branch] = Number(1);
+        branchStudentCount[student.branch] = [Number(1),Number(student.rollNumber),Number(student.rollNumber)]
       } else {
-        branchStudentCount[student.branch] += 1;
+        branchStudentCount[student.branch][0] += 1;
+        branchStudentCount[student.branch][1] = Math.min(Number(student.rollNumber),branchStudentCount[student.branch][1])
+        branchStudentCount[student.branch][2] = Math.max(Number(student.rollNumber),branchStudentCount[student.branch][2])
       }
     });
 
     // I have branch -> percentSum , passingStudentsCount
     // I also have total number of students
+    console.log(branchStudentCount)
     var resArray = [[String]];
     for (var branch in branchData) {
-      var avgPercent = branchData[branch][0] / branchStudentCount[branch];
+      var avgPercent = branchData[branch][0] / branchStudentCount[branch][0];
       var passingCount = branchData[branch][1];
+      var rangeString = String(branchStudentCount[branch][1]) + "-" + String(branchStudentCount[branch][2])
       resArray.push([
         branch,
-        String(avgPercent),
-        String(passingCount),
-        String(branchStudentCount[branch]),
+        Number(avgPercent),
+        Number(passingCount),
+        rangeString,
+        Number(branchStudentCount[branch][0]),
       ]);
     }
 
@@ -89,6 +93,7 @@ module.exports.getListWithBranchAndAveragePercent = async (req, res, next) => {
       "Branch",
       "Average Percent",
       "Students Passed",
+      "Branch Roll Number Range",
       "Total Students",
     ];
 

@@ -1,5 +1,84 @@
 import { Chart } from "react-google-charts";
 
+import React from "react";
+import { Chart } from "react-google-charts";
+
+export const data_ = [
+  [
+    "Branch",
+    "Average Percent",
+    "Students Passed",
+    "Branch Roll Number Range",
+    "Total Students"
+  ],
+  [
+    "Civil Engineering",
+    76.11466666666668,
+    60,
+    "16101-16162",
+    60
+  ],
+  [
+    "Computer Science Engineering",
+    74.82,
+    53,
+    "16201-16258",
+    53
+  ],
+  [
+    "Electrical Engineering",
+    70.84344827586204,
+    58,
+    "16301-16363",
+    58
+  ],
+  [
+    "Electronics Engineering",
+    71.61666666666667,
+    53,
+    "16401-16460",
+    54
+  ],
+  [
+    "Mechanical Engineering",
+    73.27157894736843,
+    55,
+    "16501-16560",
+    57
+  ],
+  [
+    "Information Technology",
+    76.60036363636367,
+    55,
+    "16601-16656",
+    55
+  ]
+];
+
+export const options_ = {
+  colorAxis: { colors: ["yellow", "red","blue","green","orange",
+"grey"] },
+  title:
+    "Correlation between branches and their average percentage",
+  hAxis: { title: "Average Branch Percentage" },
+  vAxis: { title: "Number of students passed" },
+  bubble: { textStyle: { fontSize: 11 } },
+};
+
+export function App() {
+  return (
+    <Chart
+      chartType="BubbleChart"
+      width="100%"
+      height="400px"
+      data={data_}
+      options={options_}
+    />
+  );
+}
+
+
+
 export const data = [
   ["Student", "Percent"],
   ["16212", 76],
