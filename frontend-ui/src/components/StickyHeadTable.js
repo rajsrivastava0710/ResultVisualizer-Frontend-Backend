@@ -25,6 +25,7 @@ const columns = [
   { id: "name", label: "Name", minWidth: 100 },
   { id: "totalMarks", label: "Total Marks", minWidth: 100 },
   { id: "percent", label: "Aggregate Percentage", minWidth: 100 },
+  { id: "rank", label: "Rank", minWidth: 100 },
 ];
 
 // const Select = styled.select`
@@ -41,7 +42,6 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
   const [studentName, setStudentName] = useState("");
   const [sortBy, setSortBy] = useState("Roll Number");
   const inputElement = useRef();
-  const selectElement = useRef();
 
   useEffect(() => {
     let tempData = tableData;
@@ -67,7 +67,9 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
     if (inputElement.current.value) {
       tempData = tempData.filter(({ name, rollNumber }) => {
         if (isNaN(+inputElement.current.value)) {
-          return name.includes(inputElement.current.value);
+          return name
+            .toLowerCase()
+            .includes(inputElement.current.value.toLowerCase());
         } else {
           return rollNumber.startsWith(inputElement.current.value);
         }
