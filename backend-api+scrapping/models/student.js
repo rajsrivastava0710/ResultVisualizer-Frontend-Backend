@@ -18,6 +18,9 @@ const studentSchema = new mongoose.Schema({
     branch:{
         type: String
     },
+    branchCode: {
+        type: String
+    },
     passingYear: {
         type: String
     },

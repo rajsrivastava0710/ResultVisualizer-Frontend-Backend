@@ -14,4 +14,6 @@ router.get('/scrapper',homeController.scrapperRoute1);
 
 router.use('/student',require('./student'));
 
+router.use('/visualise',require('./visualise'));
+
 module.exports = router;

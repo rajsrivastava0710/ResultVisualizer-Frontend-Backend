@@ -93,7 +93,7 @@ module.exports.getListWithBranchAndAveragePercent = async (req, res, next) => {
         "-" +
         String(branchStudentCount[branch][2]);
       resArray.push([
-        branch,
+        branch.split(" ")[0],
         Number(avgPercent),
         Number(passingCount),
         rangeString,

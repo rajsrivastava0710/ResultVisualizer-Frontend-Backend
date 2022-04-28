@@ -1,14 +1,16 @@
 const puppeteer = require("puppeteer");
+const helper = require("../helpers/mainHelper")
 
 const urlItem = "https://govexams.com/knit/searchresult.aspx";
 exports.screenShot = async (roll) => {
   let res = [];
   //turn the headless to false, if you dont want to see the scarpping gui
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: false, ignoreHTTPSErrors: true});
   const page = await browser.newPage();
 
   for (let i = 0; i < roll.length; i++) {
     try {
+      if(helper.isItABadEntry(roll[i]))  continue;
       let obj = {};
       await page.goto(urlItem);
       await page.waitForSelector("#txtrollno");
@@ -22,17 +24,22 @@ exports.screenShot = async (roll) => {
         (element) => element.value
       );
 
-      if (isValid.length > 0) {
-        let validYearExam = true;
+      if(isValid.length > 0) {
+        let validYearExam = false;
         await page.evaluate(() => {
           //why 2nd child, bcs first child is the text SELECT in the dropdown and 2nd is the latest result
-          let examYear = document.querySelector("select option:nth-child(2)");
-          examYear.selected = true;
-          if (examYear.innerText.substring(0, 5) == "BACK") {
-            validYearExam = false;
-          }
+          for(var selection = 2; selection <= 3; selection++) {
+            let examYear = document.querySelector(`select option:nth-child(${selection})`);
+            if(examYear === undefined) break
+            let selectedString  = examYear.innerText
+            var len = selectedString.length
+            if(selectedString.substring(len-3) != "7-8")  continue;
+            console.log(selectedString.substring(len-3))
+            examYear.selected = true;
+            validYearExam = true
+          }      
         });
-        if (!validYearExam) continue;
+        // if (!validYearExam) continue;
         await page.click("#btnGo");
         await page.waitForSelector("#lblrno");
         const rollNo = await page.$eval(
@@ -163,8 +170,8 @@ exports.screenShot = async (roll) => {
   return res;
 };
 
-async function populateSubjectData(startRoll, endRoll, obj, page) {
-  for(var row = startRoll;row <= endRoll;row++) {
+async function populateSubjectData(startRow, endRow, obj, page) {
+  for(var row = startRow;row <= endRow;row++) {
     await page.waitForSelector(`#TableMark tbody tr:nth-child(${row}) td span`);
     var rowData = []
     for(var col = 1;col <= 6;col++) {
@@ -185,7 +192,9 @@ async function findCorrectBlockEnd(blockEnd, page) {
       `#TableMark tbody tr:nth-child(${blockEnd}) td span`,
       (element) => element.innerText
     );
-    if(row.substring(0,19).toLowerCase() == "general proficiency")  break;
+    if(row.substring(0,19).toLowerCase() == "general proficiency" ||
+    row.substring(0,17).toLowerCase() == "general profiency")
+      break;
     blockEnd += 1
   }
   return blockEnd

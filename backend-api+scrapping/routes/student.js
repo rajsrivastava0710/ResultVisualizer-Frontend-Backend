@@ -12,4 +12,6 @@ router.get('/destroy/setItOnFire',studentController.deleteAllStudents);
 
 router.get('/:id',studentController.getStudentDataByRollNo);
 
+router.get('/visualise1',studentController.getAllStudentsDetail);
+
 module.exports = router;
