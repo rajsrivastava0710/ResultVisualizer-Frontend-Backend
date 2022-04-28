@@ -72,6 +72,9 @@ const ChartsVisualization = () => {
           <MenuItem value="Civil">Civil</MenuItem>
           <MenuItem value="Computer Science">Computer Science</MenuItem>
           <MenuItem value="Electrical">Electrical</MenuItem>
+          <MenuItem value="Electronics">Electronics</MenuItem>
+          <MenuItem value="Mechanical">Mechanical</MenuItem>
+          <MenuItem value="Information Technology">Information Technology</MenuItem>
         </Select>
       </FormControl>
       {table1Data && <ScatterChart tableData={table1Data} />}

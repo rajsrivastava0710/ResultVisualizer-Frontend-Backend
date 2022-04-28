@@ -4,7 +4,7 @@ const options = {
   //   title:
   //     "Fertility rate vs life expectancy in selected countries (2010)." +
   //     " X=Life Expectancy, Y=Fertility, Bubble size=Population, Bubble color=Region",
-  hAxis: { title: "Average Percentage" },
+  hAxis: { title: "Average Percentage of branch" },
   vAxis: {
     title: "Number of students passed",
     viewWindow: {

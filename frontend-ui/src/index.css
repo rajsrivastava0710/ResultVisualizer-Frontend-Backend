@@ -7,7 +7,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  height: 100vh;
+  width: 100%;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.topperColor {
+  background-color: #da4d62
+}
+.secondTopperColor {
+  background-color: cornflowerblue;
+}
+.thirdTopperColor {
+  background-color: lightgreen;
 }
