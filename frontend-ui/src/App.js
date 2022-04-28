@@ -8,7 +8,6 @@ function App() {
     <Routes>
       <Route path="/" exact element={<Home />}></Route>
       <Route path="/charts" exact element={<ChartsVisualization />}></Route>
-      <Route path="*" element={<Error />}></Route>
     </Routes>
   );
 }
