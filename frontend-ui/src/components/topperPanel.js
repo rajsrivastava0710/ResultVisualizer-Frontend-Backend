@@ -32,7 +32,9 @@ const TopperPanel = () => {
         flexDirection: 'row',
         width: '90%',
         margin: 'auto',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        flexWrap: 'wrap',
+        margin: '15px auto',
     }
     const singleStudent = {
         width: '200px',
