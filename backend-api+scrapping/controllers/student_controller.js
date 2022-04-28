@@ -75,30 +75,3 @@ module.exports.getAllStudentsDetail = async (req, res, next) => {
       });
   }
 };
-
-module.exports.getStudentsWithRollNumberAndPercent = async (req, res, next) => {
-  try {
-    const branch = req.query.branch;
-    let code = mainHelper.getBranchCode(branch)
-    var students = await Student.find({branchCode: code})
-    // .select({
-      // _id: 1,
-      // name: 1,
-      // rollNumber: 1,
-      // percent: 1
-    // });
-
-    // students.forEach(student => {
-    //   console.log(student)
-    // })
-
-    return res.status(200).json(students)      
-
-  } catch(error) {
-      console.log(errorMessage(error));
-      return res.status(404).json({
-        error: errorMessage(error),
-      });
-  }
-};
-  

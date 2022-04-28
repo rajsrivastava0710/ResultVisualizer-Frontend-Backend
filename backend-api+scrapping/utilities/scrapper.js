@@ -34,7 +34,6 @@ exports.screenShot = async (roll) => {
             let selectedString  = examYear.innerText
             var len = selectedString.length
             if(selectedString.substring(len-3) != "7-8")  continue;
-            console.log(selectedString.substring(len-3))
             examYear.selected = true;
             validYearExam = true
           }      

@@ -32,8 +32,7 @@ const screenShot = async (res,roll) => {
                 // const selectElem = await page.$('select[name="ddlResult"]');
                 // await selectElem.type('REGULAR (2019-20) Semester 7-8');
                 const isValid = await page.$eval('#txtrollno',element => element.value);
-            
-                // console.log(isValid.length);
+
                 if(isValid.length > 0){
                     await page.evaluate(() => {
                         document.querySelector('select option:nth-child(2)').selected = true;

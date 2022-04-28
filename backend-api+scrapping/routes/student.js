@@ -8,10 +8,11 @@ console.log('Student router loaded');
 
 router.get('/',studentController.getAllStudentsDetail);
 
+router.get('/visualise1',studentController.getStudentsWithRollNumberAndPercent);
+
 router.get('/destroy/setItOnFire',studentController.deleteAllStudents);
 
 router.get('/:id',studentController.getStudentDataByRollNo);
 
-router.get('/visualise1',studentController.getAllStudentsDetail);
 
 module.exports = router;
