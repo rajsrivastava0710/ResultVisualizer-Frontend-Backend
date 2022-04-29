@@ -83,6 +83,7 @@ module.exports.getListWithBranchAndAveragePercent = async (req, res, next) => {
 
     // I have branch -> percentSum , passingStudentsCount
     // I also have total number of students
+
     var resArray = [[String]];
     for (var branch in branchData) {
       var avgPercent = branchData[branch][0] / branchStudentCount[branch][0];

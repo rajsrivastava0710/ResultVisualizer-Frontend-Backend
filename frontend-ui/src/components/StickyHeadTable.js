@@ -20,6 +20,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Navigate, useNavigate } from "react-router-dom";
+import TopperPanel from "./topperPanel";
 
 const columns = [
   { id: "rollNumber", label: "Roll No.", minWidth: 170 },
@@ -137,6 +138,9 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
           <MenuItem value="Civil">Civil</MenuItem>
           <MenuItem value="Computer Science">Computer Science</MenuItem>
           <MenuItem value="Electrical">Electrical</MenuItem>
+          <MenuItem value="Electronics">Electronics</MenuItem>
+          <MenuItem value="Mechanical">Mechanical</MenuItem>
+          <MenuItem value="Information Technology">Information Technology</MenuItem>
         </Select>
       </FormControl>
 
@@ -153,6 +157,8 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
           <MenuItem value="Percentage">Percentage</MenuItem>
         </Select>
       </FormControl>
+
+      <TopperPanel/>
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
