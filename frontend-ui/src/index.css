@@ -41,7 +41,7 @@ code {
     box-shadow: 0 0 12px 2px #7e795d;
     margin: 15px auto;
     background: lavender;
-    height: 335px;
+    padding-bottom: 25px;
 }
 
 .firstTopperPosition {
