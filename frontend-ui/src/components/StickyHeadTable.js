@@ -19,6 +19,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import TopperPanel from "./topperPanel";
 
 const columns = [
   { id: "rollNumber", label: "Roll No.", minWidth: 170 },
@@ -150,6 +151,8 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
           <MenuItem value="Percentage">Percentage</MenuItem>
         </Select>
       </FormControl>
+
+      <TopperPanel/>
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>

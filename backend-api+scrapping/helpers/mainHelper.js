@@ -3,6 +3,7 @@ const Student = require("../models/student")
 const Subject = require("../models/subject")
 const { addListener } = require("../models/student")
 
+//These are generally people with year backs, so should not be considered in our batch anyway
 const badRoll = new Set(["16209","16317","16323","16331","16410","16422","16424","16454","16457"]);
 
 function populateRoll(roll,startRoll,rangeRoll){

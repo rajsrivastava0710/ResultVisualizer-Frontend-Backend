@@ -5,21 +5,21 @@ const TopperPanel = () => {
     const studentData = 
     [
         {
-            'name': 'Raj',
+            'name': 'Raj Srivastava',
             'rollNumber': '16243',
             'percentage':'76',
             'division':'I-Div',
             'branch':'CSE'
         },
         {
-            'name': 'Shiv',
+            'name': 'Tejaswi Verma',
             'rollNumber': '16243',
             'percentage':'76',
             'division':'I-Div',
             'branch':'CSE'
         },
         {
-            'name': 'Satya',
+            'name': 'Singh Shubham Singh Sanjay Singh',
             'rollNumber': '16243',
             'percentage':'76',
             'division':'I-Div',
@@ -44,52 +44,64 @@ const TopperPanel = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
-
+        alignItems: 'center',
     }
     const studentBlock = {
         minWidth:'200px',
         width:'30%',
-        height:'258px',
+        // height:'258px',
         display:'flex',
         flexDirection:'column',
         justifyContent:'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
     }
     const crownStyle = {
-        transform: 'scale(5)'
+        transform: 'scale(5)',
+        position: 'relative',
+        top: '-33px'
+    }
+    const topperText = {
+        color: 'rgb(53 56 228)', 
+        textAlign: 'center', 
+        fontFamily: 'monospace', 
+        fontSize: '2rem', 
+        fontWeight: '600'
     }
     
     return (
-        <div style = {parentDiv}>
-            <div style={studentBlock}>
-                <div style = {singleStudent} className = 'secondTopperColor'>
+        <div className = "topperLayoutBox">
+            <div style= {topperText}>TOPPERS (Put this also under Accordion)</div>
+            <hr style={{border: '2px solid black'}}></hr>
+            <div style = {parentDiv}>
+                <div style={studentBlock}>
+                    <div style = {singleStudent} className = 'secondTopperColor toppers'>
+                        {
+                        <SingleStudentTopper studentData={studentData[1]} color = {'#d0cecef0'}></SingleStudentTopper>   
+                        }
+                    </div>
+                </div>
+                        
+                <div style={studentBlock} className = 'firstTopperPosition'>
+                    <div style = {crownStyle} >
+                        &#128081;
+                    </div>
+                    <div style = {singleStudent} className = 'topperColor toppers' >
                     {
-                    <SingleStudentTopper studentData={studentData[1]}></SingleStudentTopper>   
+                    <SingleStudentTopper studentData={studentData[0]} color = {'#ecd6ab'}></SingleStudentTopper>
                     }
+                    </div>
                 </div>
-            </div>
-                    
-            <div style={studentBlock}>
-                <div style = {crownStyle} >
-                    &#128081;
+            
+                <div style={studentBlock}>
+                    <div style={singleStudent} className = 'thirdTopperColor toppers'>
+                        {
+                        <SingleStudentTopper studentData={studentData[2]} color = {'#4d3535'}></SingleStudentTopper>
+                        }
+                    </div>
                 </div>
-                <div style = {singleStudent} className = 'topperColor' >
-                {
-                <SingleStudentTopper studentData={studentData[0]}></SingleStudentTopper>
-                }
-                </div>
-            </div>
-        
-            <div style={studentBlock}>
-                <div style={singleStudent} className = 'thirdTopperColor'>
-                    {
-                    <SingleStudentTopper studentData={studentData[2]}></SingleStudentTopper>
-                    }
-                </div>
-            </div>
-        
-      </div>
+            
+        </div>
+        </div>
     );
   };
 

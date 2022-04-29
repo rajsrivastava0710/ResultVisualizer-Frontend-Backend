@@ -25,21 +25,26 @@ exports.screenShot = async (roll) => {
       );
 
       if(isValid.length > 0) {
-        let validYearExam = false;
-        await page.evaluate(() => {
-          //why 2nd child, bcs first child is the text SELECT in the dropdown and 2nd is the latest result
-          for(var selection = 2; selection <= 3; selection++) {
-            let examYear = document.querySelector(`select option:nth-child(${selection})`);
-            if(examYear === undefined) break
-            let selectedString  = examYear.innerText
-            var len = selectedString.length
-            if(selectedString.substring(len-3) != "7-8")  continue;
-            examYear.selected = true;
-            validYearExam = true;
-            break;
-          }      
-        });
-        // if (!validYearExam) continue;
+          await page.evaluate(() => {
+              let firstSelection = document.querySelector(`select option:nth-child(2)`)
+              let secondSelection = document.querySelector(`select option:nth-child(3)`)
+              if(firstSelection.innerText == "SPL-BACK (2019-20) Semester 7-8") {
+                firstSelection.selected = true
+              } else if(secondSelection.innerText == "SPL-BACK (2019-20) Semester 7-8") {
+                secondSelection.selected = true
+              } else {
+                for(var selection = 2; selection <= 3; selection++) {
+                  let examYear = document.querySelector(`select option:nth-child(${selection})`);
+                  if(examYear === undefined) break
+                  let selectedString  = examYear.innerText
+                  var len = selectedString.length
+                  if(selectedString.substring(len-3) != "7-8")  continue;
+                  examYear.selected = true;
+                  break;
+                } 
+              }
+          })
+
         await page.click("#btnGo");
         await page.waitForSelector("#lblrno");
         const rollNo = await page.$eval(
