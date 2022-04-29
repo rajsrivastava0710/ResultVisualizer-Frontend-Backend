@@ -48,3 +48,17 @@ code {
   position: relative;
   top: 33px;
 }
+
+.studentBlock{
+  min-width: 200px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.7s ease-in-out;
+}
+
+.studentBlock:hover {
+  position: relative;
+}

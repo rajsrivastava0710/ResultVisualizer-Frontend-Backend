@@ -9,6 +9,7 @@ function App() {
     <Routes>
       <Route path="/" exact element={<Home />}></Route>
       <Route path="/charts" exact element={<ChartsVisualization />}></Route>
+      <Route path='/landing' exact element={<ExperimentPage/ >}></Route>
       <Route path="*" element={<Error />}></Route>
     </Routes>
   );

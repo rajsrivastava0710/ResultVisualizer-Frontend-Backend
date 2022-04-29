@@ -46,15 +46,6 @@ const TopperPanel = () => {
         justifyContent: 'center',
         alignItems: 'center',
     }
-    const studentBlock = {
-        minWidth:'200px',
-        width:'30%',
-        // height:'258px',
-        display:'flex',
-        flexDirection:'column',
-        justifyContent:'space-between',
-        alignItems: 'center',
-    }
     const crownStyle = {
         transform: 'scale(5)',
         position: 'relative',
@@ -73,7 +64,7 @@ const TopperPanel = () => {
             <div style= {topperText}>TOPPERS (Put this also under Accordion)</div>
             <hr style={{border: '2px solid black'}}></hr>
             <div style = {parentDiv}>
-                <div style={studentBlock}>
+                <div className="studentBlock">
                     <div style = {singleStudent} className = 'secondTopperColor toppers'>
                         {
                         <SingleStudentTopper studentData={studentData[1]} color = {'#d0cecef0'}></SingleStudentTopper>   
@@ -81,7 +72,7 @@ const TopperPanel = () => {
                     </div>
                 </div>
                         
-                <div style={studentBlock} className = 'firstTopperPosition'>
+                <div className = 'studentBlock firstTopperPosition'>
                     <div style = {crownStyle} >
                         &#128081;
                     </div>
@@ -92,7 +83,7 @@ const TopperPanel = () => {
                     </div>
                 </div>
             
-                <div style={studentBlock}>
+                <div className = 'studentBlock relativePosition'>
                     <div style={singleStudent} className = 'thirdTopperColor toppers'>
                         {
                         <SingleStudentTopper studentData={studentData[2]} color = {'#4d3535'}></SingleStudentTopper>
