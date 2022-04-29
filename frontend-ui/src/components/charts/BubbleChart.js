@@ -8,8 +8,10 @@ const options = {
   vAxis: {
     title: "Number of students passed",
     viewWindow: {
-      min: 30,
-      max: 80,
+
+      min: 5,
+      max: 100,
+
     },
   },
   bubble: { textStyle: { fontSize: 11 } },

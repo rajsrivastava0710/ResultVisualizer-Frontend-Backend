@@ -9,6 +9,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import PieChart from "../components/charts/PieChart";
 import BubbleChart from "../components/charts/BubbleChart";
+import { BarChart } from "../components/charts/BarChart";
+import { LineChart } from "../components/charts/LineChart";
 
 const ChartsVisualization = () => {
   const handleChange = (event) => {

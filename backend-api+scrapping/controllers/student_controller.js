@@ -31,74 +31,76 @@ module.exports.deleteAllStudents = async function (req, res) {
       message: "All Students deleted",
     });
   } catch (error) {
-      console.log(errorMessage(error));
-      return res.status(404).json({
-        error: errorMessage(error),
-      });
+    console.log(errorMessage(error));
+    return res.status(404).json({
+      error: errorMessage(error),
+    });
   }
 };
 
 module.exports.getAllStudentsDetail = async (req, res, next) => {
   try {
     const branch = req.query.branch;
-    let code = mainHelper.getBranchCode(branch)
+    let code = mainHelper.getBranchCode(branch);
 
     //TODO: We now have a field named , branchCode, so we can use that directly to search instead of using regex
     if (code > 0) {
       const regexp = new RegExp("^" + code);
-      const students = await Student.find({ rollNumber: regexp })
+      const students = await Student.find({ rollNumber: regexp }).populate({
+        path: "semesterSubjects",
+      });
       // .select({
-        // _id: 1,
-        // rollNumber: 1,
-        // totalMarks: 1,
-        // name: 1,
-        // percent: 1,
-        // branch: 1
+      // _id: 1,
+      // rollNumber: 1,
+      // totalMarks: 1,
+      // name: 1,
+      // percent: 1,
+      // branch: 1
       // });
       return res.status(200).json(students);
     } else {
-      const students = await Student.find({})
+      const students = await Student.find({}).populate({
+        path: "semesterSubjects",
+      });
       // .select({
-        // _id: 1,
-        // rollNumber: 1,
-        // totalMarks: 1,
-        // name: 1,
-        // percent: 1,
-        // branch: 1
+      // _id: 1,
+      // rollNumber: 1,
+      // totalMarks: 1,
+      // name: 1,
+      // percent: 1,
+      // branch: 1
       // });
       return res.status(200).json(students);
     }
-  } catch(error) {
-      console.log(errorMessage(error));
-      return res.status(404).json({
-        error: errorMessage(error),
-      });
+  } catch (error) {
+    console.log(errorMessage(error));
+    return res.status(404).json({
+      error: errorMessage(error),
+    });
   }
 };
 
 module.exports.getStudentsWithRollNumberAndPercent = async (req, res, next) => {
   try {
     const branch = req.query.branch;
-    let code = mainHelper.getBranchCode(branch)
-    var students = await Student.find({branchCode: code})
+    let code = mainHelper.getBranchCode(branch);
+    var students = await Student.find({ branchCode: code });
     // .select({
-      // _id: 1,
-      // name: 1,
-      // rollNumber: 1,
-      // percent: 1
+    // _id: 1,
+    // name: 1,
+    // rollNumber: 1,
+    // percent: 1
     // });
 
     // students.forEach(student => {
     //   console.log(student)
     // })
 
-    return res.status(200).json(students)      
-
-  } catch(error) {
-      console.log(errorMessage(error));
-      return res.status(404).json({
-        error: errorMessage(error),
-      });
+    return res.status(200).json(students);
+  } catch (error) {
+    console.log(errorMessage(error));
+    return res.status(404).json({
+      error: errorMessage(error),
+    });
   }
 };
-  
