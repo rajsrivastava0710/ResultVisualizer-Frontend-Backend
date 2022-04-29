@@ -11,6 +11,11 @@ import {
 import { Box } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import HistogramChart from "../components/charts/HistogramChart";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { BarChartData, lineChartData } from "../util/convertData";
+import { LineChart } from "../components/charts/LineChart";
+import { BarChart } from "../components/charts/BarChart";
+import { StackedBarChart } from "../components/charts/StackedBarChart";
 
 // const data = [
 //   ["Student", "Percent"],
@@ -50,24 +55,31 @@ const data = [
 ];
 
 const StudentProfile = () => {
+  const location = useLocation();
+  const studentData = location.state;
+  console.log(studentData);
+  const navigate = useNavigate();
+  if (!studentData) {
+    return <Navigate to="/"></Navigate>;
+  }
+  // console.log(BarChartData(studentData));
   return (
-    <div style={{ display: "flex", padding: "0px 100px" }}>
-      <Paper elevation={4} sx={{ width: "65%", height: 600, margin: "20px" }}>
-        <HistogramChart tableData={data}></HistogramChart>
+    <div style={{ display: "flex", padding: "0px 20px" }}>
+      <Paper elevation={4} sx={{ width: "65%", margin: "20px", padding: 2 }}>
+        <BarChart data={lineChartData(studentData)}></BarChart>
+        <StackedBarChart data={BarChartData(studentData)} />
       </Paper>
       <Paper
         elevation={4}
         sx={{
-          width: "35%",
-          height: 600,
+          width: "45%",
           margin: "20px",
           display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-          paddingLeft: 5,
+          justifyContent: "flex-start",
+          padding: 2,
         }}
       >
-        <Grid container sx={{ margin: "auto", justifyContent: "space-around" }}>
+        <Grid container sx={{ justifyContent: "space-around" }}>
           <Grid container item>
             <Grid item>
               <Grid container>
@@ -82,79 +94,130 @@ const StudentProfile = () => {
                     alignItems: "flex-end",
                   }}
                 >
-                  <span style={{ fontSize: 20 }}>Tejaswi Verma(16252)</span>
+                  <span
+                    style={{
+                      fontSize: 20,
+                      fontSize: "30px",
+                      fontFamily: "sans-serif",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {`${studentData.name}`}
+                  </span>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
+            <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
               <Grid item xs={4}>
-                <b>Username:</b>
+                <b>Name :</b>
               </Grid>
-              <Grid item>Tejaswi Verma</Grid>
+              <Grid item xs={8}>
+                {studentData.name}
+              </Grid>
             </Grid>
 
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
-              <Grid item xs={4}>
+            {/* <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
+              <Grid item xs={5}>
                 <b>Father's Name</b>
               </Grid>
               <Grid item>Devendra Singh</Grid>
-            </Grid>
+            </Grid> */}
             <Divider />
 
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
+            <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
               <Grid item xs={4}>
-                <b>Roll No.:</b>
+                <b>Roll No :</b>
               </Grid>
               <Grid item xs={4}>
-                16252
+                {studentData.rollNumber}
               </Grid>
               <Divider />
             </Grid>
 
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
+            <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
               <Grid item xs={4}>
-                <b>Course:</b>
+                <b>Course :</b>
               </Grid>
               <Grid item xs={4}>
-                Btech
-              </Grid>
-            </Grid>
-            <Divider />
-
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
-              <Grid item xs={4}>
-                <b>Branch:</b>
-              </Grid>
-              <Grid item xs={4}>
-                Computer Science and Engineering
+                B.Tech
               </Grid>
             </Grid>
             <Divider />
 
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
+            <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
               <Grid item xs={4}>
-                <b>Percent:</b>
+                <b>Branch :</b>
+              </Grid>
+              <Grid item xs={8}>
+                {studentData.branch}
+              </Grid>
+            </Grid>
+            <Divider />
+
+            <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
+              <Grid item xs={4}>
+                <b>Percent :</b>
               </Grid>
               <Grid item xs={4}>
-                75.2
+                {studentData.percent}
               </Grid>
             </Grid>
 
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
+            <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
               <Grid item xs={4}>
-                <b>Total Marks:</b>
+                <b>Total Marks :</b>
               </Grid>
-              <Grid item xs={4}>
-                4790
+              <Grid item xs={6}>
+                {studentData.totalMarks}
               </Grid>
             </Grid>
 
-            <Grid container item spacing={5} sx={{ padding: 2 }}>
+            <Grid
+              container
+              item
+              spacing={5}
+              sx={{ padding: 2, fontSize: "1.75rem" }}
+            >
               <Grid item xs={4}>
-                <b>Division:</b>
+                <b>Division :</b>
               </Grid>
-              <Grid item xs={4}>
-                Div I
+              <Grid item xs={8}>
+                {studentData.division}
               </Grid>
             </Grid>
             <Divider />

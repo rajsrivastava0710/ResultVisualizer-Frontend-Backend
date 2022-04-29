@@ -19,6 +19,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const columns = [
   { id: "rollNumber", label: "Roll No.", minWidth: 170 },
@@ -42,6 +43,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
   const [studentName, setStudentName] = useState("");
   const [sortBy, setSortBy] = useState("Roll Number");
   const inputElement = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let tempData = tableData;
@@ -98,6 +100,10 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
 
   const handleSort = (event) => {
     setSortBy(event.target.value);
+  };
+
+  const handleClick = (studentsData) => {
+    navigate(`/students/${studentsData.rollNumber}`, { state: studentsData });
   };
 
   return (
@@ -174,6 +180,9 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
                         role="checkbox"
                         tabIndex={-1}
                         key={row._id}
+                        onClick={() => {
+                          handleClick(row);
+                        }}
                       >
                         {columns.map((column) => {
                           const value = row[column.id];

@@ -9,7 +9,7 @@ const options = {
     title: "Number of students passed",
     viewWindow: {
       min: 5,
-      max: 15,
+      max: 100,
     },
   },
   bubble: { textStyle: { fontSize: 11 } },
