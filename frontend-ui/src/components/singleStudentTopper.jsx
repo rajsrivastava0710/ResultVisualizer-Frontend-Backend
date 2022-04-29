@@ -17,9 +17,9 @@ const SingleStudentTopper = ({studentData, color}) => {
         <div style = {topperDetailContainer}>
             <div style = {{width: '70%', textAlign: 'center', padding: '10px'}}>{studentData.name}</div>
             <div>({studentData.rollNumber})</div>
-            <hr style = {{width: '95%', border: '2px solid #cccccc78'}}></hr>
+            <hr style = {{width: '95%', border: '1px solid #cccccc78'}}></hr>
             <div>{studentData.branch}</div>
-            <div>{studentData.percentage}%</div>
+            <div>{studentData.percent}%</div>
             <div>{studentData.division}</div>
         </div>
     );

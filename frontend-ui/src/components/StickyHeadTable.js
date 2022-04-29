@@ -140,7 +140,9 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
           <MenuItem value="Electrical">Electrical</MenuItem>
           <MenuItem value="Electronics">Electronics</MenuItem>
           <MenuItem value="Mechanical">Mechanical</MenuItem>
-          <MenuItem value="Information Technology">Information Technology</MenuItem>
+          <MenuItem value="Information Technology">
+            Information Technology
+          </MenuItem>
         </Select>
       </FormControl>
 
@@ -158,7 +160,11 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
         </Select>
       </FormControl>
 
-      <TopperPanel/>
+      <TopperPanel
+        studentData={tableData
+          .sort((a, b) => b.percent - a.percent)
+          .slice(0, 3)}
+      />
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
