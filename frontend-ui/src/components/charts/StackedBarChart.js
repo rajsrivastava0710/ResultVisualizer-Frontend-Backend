@@ -30,7 +30,6 @@ export const options = {
 };
 
 export function StackedBarChart({ data }) {
-  console.log(data);
   return (
     <Chart
       chartType="Bar"

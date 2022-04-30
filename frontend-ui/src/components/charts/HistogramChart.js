@@ -1,7 +1,9 @@
 import { Chart } from "react-google-charts";
+import Paper from "@mui/material/Paper";
+import ChartTitle from "../ChartTitle"
 
 const options = {
-  title: "Marks Distribution Among Students",
+  // title: "Marks Distribution Among Students",
   hAxis: {
     title: "Marks",
   },
@@ -17,15 +19,16 @@ const HistogramChart = ({ tableData }) => {
     data.push([`${row.name} - ${row.rollNumber}`, +row.percent]);
   });
   return (
-    <div>
+    <Paper sx = {{width: '90%', margin: 'auto', marginBottom: '20px'}}>
+      <ChartTitle title = "Marks distribution among students" ></ChartTitle>
       <Chart
-        chartType="Histogram"
-        width="100%"
-        height="400px"
-        data={data}
-        options={options}
+      chartType="Histogram"
+      width="100%"
+      height="400px"
+      data={data}
+      options={options}
       />
-    </div>
+    </Paper>
   );
 };
 
