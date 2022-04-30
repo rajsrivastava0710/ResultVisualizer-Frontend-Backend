@@ -3,6 +3,7 @@ import ChartsVisualization from "./pages/ChartsVisualization";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import StudentProfile from "./pages/StudentProfile";
+import LandingPage from "./pages/LandingPage"
 
 import ContactPage from "./pages/Contact";
 import ProfileCard from "./components/ProfileCard";
@@ -13,7 +14,8 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" exact element={<Home />}></Route>
+        <Route path="/" exact element={<LandingPage />}></Route>
+        <Route path="/students" exact element={<Home />}></Route>
         <Route path="/charts" exact element={<ChartsVisualization />}></Route>
 
         <Route path="/students/:id" exact element={<ProfileCard />}></Route>

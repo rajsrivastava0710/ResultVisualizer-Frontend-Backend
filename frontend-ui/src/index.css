@@ -36,12 +36,10 @@ code {
 }
 
 .topperLayoutBox {
-  /* border: 2px solid black; */
   border-radius: 15px;
   box-shadow: 0 0 12px 2px #7e795d;
   margin: 15px auto;
-  /* background: lavender; */
-  /* padding-bottom: 25px; */
+  cursor: pointer;
 }
 
 .firstTopperPosition {
@@ -179,4 +177,23 @@ h6 {
 }
 .contact-container:hover ~ .short-name {
   opacity: 0;
+}
+
+/* ////////////////////Landing Page/////////////////// */
+
+.welcome-text {
+  height: 40%;
+  font-size: 2.5rem;
+  font-family: cursive;
+  display: flex;
+  align-items: center;
+}
+
+.rest-landing-area {
+  height: 55%;
+  /* display: flex;
+  flex-direction: "column";
+  justify-content: "center";
+  align-items: "center" */
+  text-align: center;
 }

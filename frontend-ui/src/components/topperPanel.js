@@ -20,6 +20,7 @@ const TopperPanel = ({ studentData }) => {
     justifyContent: "space-around",
     flexWrap: "wrap",
     margin: "15px auto",
+    marginBottom: "32px"
   };
   const singleStudent = {
     width: "200px",
@@ -60,12 +61,6 @@ const TopperPanel = ({ studentData }) => {
             id="panel1bh-header"
             sx={{ background: "powderblue" }}
           >
-            {/* <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Toppers
-            </Typography>
-            <Typography sx={{ color: "text.secondary" }}>
-              Top 3 Students
-            </Typography> */}
             <div style={topperText}>TOPPERS</div>
           </AccordionSummary>
           <AccordionDetails>
