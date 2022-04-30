@@ -18,7 +18,7 @@ export const BarChartData = (studentData) => {
   studentData.semesterSubjects.forEach((value) => {
     if (!value.name.includes("PROJECT")) {
       data.push([
-        value.name.split("[")[0].toLowerCase(),
+        value.name.split("[")[1].split("]")[0],
         +value.sessionalObtained,
         +value.writtenObtained,
       ]);

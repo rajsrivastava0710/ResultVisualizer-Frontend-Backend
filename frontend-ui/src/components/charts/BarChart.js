@@ -32,9 +32,9 @@ export const options = {
 export function BarChart({ data }) {
   return (
     <Chart
-      chartType="Bar"
+      chartType="BarChart"
       width="100%"
-      height="300px"
+      height="400px"
       data={data}
       options={options}
     />
