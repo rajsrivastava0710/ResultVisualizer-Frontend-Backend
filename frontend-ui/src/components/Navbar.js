@@ -77,7 +77,7 @@ const NavBar = () => {
             }}
             xs={1}
           >
-            {user.name && user.rollNumber && (
+            {user && user.name && user.rollNumber && (
               <Tooltip title="Open your student profile">
                 <IconButton sx={{ p: 0 }}>
                   <Avatar>{user.name.charAt(0)}</Avatar>
