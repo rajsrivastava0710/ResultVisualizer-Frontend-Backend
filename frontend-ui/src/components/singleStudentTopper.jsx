@@ -1,5 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const SingleStudentTopper = ({studentData, color}) => {
-   
+    const navigate = useNavigate();
     const topperDetailContainer = {
         display: 'flex',
         textAlign: 'center',
@@ -14,8 +16,12 @@ const SingleStudentTopper = ({studentData, color}) => {
         fontWeight: '600',
         padding: '5px'
     }
+    const handleClick = (studentsData) => {
+        navigate(`/students/${studentsData.rollNumber}`, { state: studentsData });
+      };
+      
     return (
-        <div style = {topperDetailContainer}>
+        <div style = {topperDetailContainer} onClick={()=>{handleClick(studentData)}}>
             <div>
                 <div style = {{width: '68%', margin: 'auto', padding: '3px'}}>{studentData.name}</div>
                 <div>({studentData.rollNumber})</div>

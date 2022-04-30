@@ -2,7 +2,13 @@ import { Chip, Fab, Grid, Paper } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import styled from "styled-components";
-import { Facebook, Instagram, Twitter } from "@mui/icons-material";
+import {
+  Facebook,
+  GitHub,
+  Instagram,
+  LinkedIn,
+  Twitter,
+} from "@mui/icons-material";
 import { BarChart } from "./charts/BarChart";
 import { BarChartData, lineChartData } from "../util/convertData";
 import { useLocation } from "react-router-dom";
@@ -35,16 +41,18 @@ const ProfileCard = () => {
   const location = useLocation();
   const studentData = location.state;
   return (
-    <Grid container>
-      <Grid container item spacing={4}>
-        {/* <Grid xs={4}></Grid> */}
-        <Grid item xs={3}>
+    <Grid container sx={{ padding: 8 }}>
+      <Grid container item spacing={5} sx={{ marginBottom: 6 }}>
+        {/* <Grid xs={1}></Grid> */}
+        <Grid item xs={4}>
           <Paper
+            elevation={5}
             sx={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-around",
               alignItems: "center",
+              height: "400px",
             }}
           >
             <AccountCircleIcon sx={{ fontSize: 100 }} />
@@ -53,10 +61,10 @@ const ProfileCard = () => {
               Computer Science and Engineering
             </h4>
             <Chip
-              label="Division I"
+              label="Div I "
               color="primary"
               size="large"
-              sx={{ width: "30%", fontSize: "1.2rem" }}
+              sx={{ width: "30%", fontSize: "1rem" }}
             />
             <Span>Total Marks : 3690</Span>
             <Span>Percentage : 76.2</Span>
@@ -65,20 +73,26 @@ const ProfileCard = () => {
                 <Facebook />
               </SocialIcon>
               <SocialIcon color="E4405F">
-                <Instagram />
+                <GitHub />
               </SocialIcon>
               <SocialIcon color="55ACEE">
-                <Twitter />
+                <LinkedIn />
               </SocialIcon>
             </SocialContainer>
           </Paper>
         </Grid>
-        <Grid item xs={7}>
-          <BarChart data={lineChartData(studentData)}></BarChart>
+        <Grid item xs={8}>
+          <Paper sx={{ height: "400px" }} elevation={5}>
+            <BarChart data={lineChartData(studentData)}></BarChart>
+          </Paper>
         </Grid>
       </Grid>
       <Grid container item>
-        <StackedBarChart data={BarChartData(studentData)} />
+        <Grid item xs={12}>
+          <Paper sx={{ padding: 10 }} elevation={5}>
+            <StackedBarChart data={BarChartData(studentData)} />
+          </Paper>
+        </Grid>
       </Grid>
     </Grid>
   );

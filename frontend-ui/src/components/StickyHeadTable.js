@@ -195,6 +195,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
                         onClick={() => {
                           handleClick(row);
                         }}
+                        sx={{ cursor: "pointer" }}
                       >
                         {columns.map((column) => {
                           const value = row[column.id];

@@ -11,15 +11,21 @@ import { Chart } from "react-google-charts";
 // ];
 
 export const options = {
-  title: "Marks in each subject",
-  chartArea: { width: "40%" },
-  isStacked: true,
+  chart: {
+    title: "Student's percentage year wise",
+    subtitle: "This graph shows percentage of a student year wise",
+  },
   hAxis: {
-    title: "Total Population",
+    title: "Year",
     minValue: 0,
   },
   vAxis: {
-    title: "City",
+    title: "Percentage",
+  },
+  axes: {
+    y: {
+      5: { side: "right" },
+    },
   },
 };
 
