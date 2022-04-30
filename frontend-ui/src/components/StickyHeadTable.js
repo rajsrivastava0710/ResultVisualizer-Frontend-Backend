@@ -11,6 +11,8 @@ import useHttp from "../custom_hooks/useHttp";
 import { BASE_URL } from "../constants";
 import { Box } from "@mui/system";
 import styled from "styled-components";
+import SearchIcon from '@mui/icons-material/Search';
+
 import {
   FormControl,
   Input,
@@ -23,7 +25,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import TopperPanel from "./topperPanel";
 
 const columns = [
-  { id: "rollNumber", label: "Roll No.", minWidth: 170 },
+  { id: "rollNumber", label: "Roll Number", minWidth: 170 },
   { id: "name", label: "Name", minWidth: 100 },
   { id: "totalMarks", label: "Total Marks", minWidth: 100 },
   { id: "percent", label: "Aggregate Percentage", minWidth: 100 },
@@ -116,49 +118,57 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
         backgroundColor: "primary.dark",
       }}
     >
-      <TextField
-        id="standard-basic"
-        label="Search"
-        variant="standard"
-        onChange={handleInputChange}
-        value={studentName}
-        inputRef={inputElement}
-      />
+      <div className="search-filter-bar">
 
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel id="demo-select-small">Branch</InputLabel>
-        <Select
-          labelId="demo-select-small"
-          id="demo-select-small"
-          value={branch}
-          label="Branch"
-          onChange={handleChangeSelect}
-        >
-          <MenuItem value="All">ALL</MenuItem>
-          <MenuItem value="Civil">Civil</MenuItem>
-          <MenuItem value="Computer Science">Computer Science</MenuItem>
-          <MenuItem value="Electrical">Electrical</MenuItem>
-          <MenuItem value="Electronics">Electronics</MenuItem>
-          <MenuItem value="Mechanical">Mechanical</MenuItem>
-          <MenuItem value="Information Technology">
-            Information Technology
-          </MenuItem>
-        </Select>
-      </FormControl>
+        <div>
+          <TextField id="outlined-basic" 
+            label="Search"
+            placeholder= "Search by Name / Roll No"
+            variant="outlined" 
+            onChange={handleInputChange}
+            value={studentName}
+            inputRef={inputElement}
+          />
+        </div>
+        
+        <div>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-select-small">Branch</InputLabel>
+            <Select
+              labelId="demo-select-small"
+              id="demo-select-small"
+              value={branch}
+              label="Branch"
+              onChange={handleChangeSelect}
+            >
+              <MenuItem value="All">ALL</MenuItem>
+              <MenuItem value="Civil">Civil</MenuItem>
+              <MenuItem value="Computer Science">Computer Science</MenuItem>
+              <MenuItem value="Electrical">Electrical</MenuItem>
+              <MenuItem value="Electronics">Electronics</MenuItem>
+              <MenuItem value="Mechanical">Mechanical</MenuItem>
+              <MenuItem value="Information Technology">
+                Information Technology
+              </MenuItem>
+            </Select>
+          </FormControl>
 
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel id="demo-select-small">Sort By</InputLabel>
-        <Select
-          labelId="demo-select-small"
-          id="demo-select-small"
-          value={sortBy}
-          label="Sort By"
-          onChange={handleSort}
-        >
-          <MenuItem value="Roll Number">Roll Number</MenuItem>
-          <MenuItem value="Percentage">Percentage</MenuItem>
-        </Select>
-      </FormControl>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-select-small">Sort By</InputLabel>
+            <Select
+              labelId="demo-select-small"
+              id="demo-select-small"
+              value={sortBy}
+              label="Sort By"
+              onChange={handleSort}
+            >
+              <MenuItem value="Roll Number">Roll Number</MenuItem>
+              <MenuItem value="Percentage">Percentage</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+      </div>
 
       <TopperPanel
         studentData={tableData
@@ -167,7 +177,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
       />
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <h2 style={{ textAlign: "center", margin: "10px" }}>Students Data</h2>
+          <div className = 'studentsTableTitle'>Students Data</div>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -176,7 +186,13 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      style={{ minWidth: column.minWidth }}
+                      style={{ minWidth: column.minWidth,
+                        background: 'honeydew', 
+                        fontSize: '1.2rem', 
+                        fontWeight: '600', 
+                        fontFamily: 'sans-serif',
+                        textAlign: 'center'
+                      }}
                     >
                       {column.label}
                     </TableCell>
@@ -201,7 +217,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
-                            <TableCell key={column.id} align={column.align}>
+                            <TableCell style= {{textAlign: 'center'}} key={column.id} align={column.align}>
                               {column.format && typeof value === "number"
                                 ? column.format(value)
                                 : value}

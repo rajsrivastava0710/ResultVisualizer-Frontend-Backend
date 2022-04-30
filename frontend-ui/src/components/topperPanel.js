@@ -46,6 +46,8 @@ const TopperPanel = ({ studentData }) => {
     fontWeight: "600",
     paddingBottom: "3px",
     width: "100%",
+    position: 'relative',
+    left: '9px'
   };
 
   return (
