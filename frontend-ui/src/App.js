@@ -9,6 +9,7 @@ import ContactPage from "./pages/Contact";
 import ProfileCard from "./components/ProfileCard";
 import NavBar from "./components/Navbar";
 import styled from "styled-components";
+import AboutPage from "./pages/AboutPage";
 
 const Container = styled.div`
   padding: 50px;
@@ -26,6 +27,7 @@ function App() {
         <Route path="/students/:id" exact element={<ProfileCard />}></Route>
 
         <Route path="/contact" exact element={<ContactPage />}></Route>
+        <Route path='/about' exact element = {<AboutPage />}></Route>
         <Route path="*" element={<Error />}></Route>
       </Routes>
     </>
