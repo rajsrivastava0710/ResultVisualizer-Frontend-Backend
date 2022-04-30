@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import ChartsVisualization from "./pages/ChartsVisualization";
+import BubbleChartVisualisation from "./pages/BubbleChartVisualisation"
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import StudentProfile from "./pages/StudentProfile";
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" exact element={<LandingPage />}></Route>
         <Route path="/students" exact element={<Home />}></Route>
         <Route path="/charts" exact element={<ChartsVisualization />}></Route>
+        <Route path='/charts2' exact element = {<BubbleChartVisualisation />}></Route>
 
         <Route path="/students/:id" exact element={<ProfileCard />}></Route>
 
