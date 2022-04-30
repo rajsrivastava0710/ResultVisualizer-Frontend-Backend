@@ -3,8 +3,12 @@ import ChartsVisualization from "./pages/ChartsVisualization";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import StudentProfile from "./pages/StudentProfile";
-import ExperimentPage from "./pages/experimentPage";
+
 import ProfileCard from "./components/ProfileCard";
+
+import ContactPage from "./pages/Contact"
+
+
 
 function App() {
   return (
@@ -14,7 +18,8 @@ function App() {
 
       <Route path="/students/:id" exact element={<ProfileCard />}></Route>
 
-      <Route path="/landing" exact element={<ExperimentPage />}></Route>
+
+      <Route path='/contact' exact element={<ContactPage/ >}></Route>
       <Route path="*" element={<Error />}></Route>
     </Routes>
   );

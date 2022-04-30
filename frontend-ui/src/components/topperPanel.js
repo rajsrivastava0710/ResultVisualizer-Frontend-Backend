@@ -56,12 +56,13 @@ const TopperPanel = ({ studentData }) => {
     fontFamily: "monospace",
     fontSize: "2rem",
     fontWeight: "600",
+    paddingBottom: '3px',
+    borderBottom: '3px solid black'
   };
 
   return (
     <div className="topperLayoutBox">
       <div style={topperText}>TOPPERS (Put this also under Accordion)</div>
-      <hr style={{ border: "1px solid black" }}></hr>
       <div style={parentDiv}>
         <div className="studentBlock">
           <div style={singleStudent} className="secondTopperColor toppers">
