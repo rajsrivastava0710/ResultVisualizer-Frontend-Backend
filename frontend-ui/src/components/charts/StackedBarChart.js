@@ -27,9 +27,9 @@ export function StackedBarChart({ data }) {
   console.log(data);
   return (
     <Chart
-      chartType="BarChart"
+      chartType="Bar"
       width="100%"
-      height="600px"
+      height="300px"
       data={data}
       options={options}
     />
