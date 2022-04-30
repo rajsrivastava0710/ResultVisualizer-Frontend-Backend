@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Grid, TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
+import { useSelector } from "react-redux";
 
 const pages = [
   ["Home", "students"],
@@ -24,6 +25,8 @@ const pages = [
 const options = ["Tabular", "Graph", "Bubble Chart"];
 
 const NavBar = () => {
+  const user = useSelector((state) => state.user.currentUser);
+  console.log(user);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -74,11 +77,13 @@ const NavBar = () => {
             }}
             xs={1}
           >
-            <Tooltip title="Open your student profile">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar>TV</Avatar>
-              </IconButton>
-            </Tooltip>
+            {user.name && user.rollNumber && (
+              <Tooltip title="Open your student profile">
+                <IconButton sx={{ p: 0 }}>
+                  <Avatar>{user.name.charAt(0)}</Avatar>
+                </IconButton>
+              </Tooltip>
+            )}
           </Grid>
         </Grid>
       </Container>

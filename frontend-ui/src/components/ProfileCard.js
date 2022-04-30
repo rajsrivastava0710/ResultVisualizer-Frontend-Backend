@@ -37,64 +37,70 @@ const Span = styled.span`
   margin-top: 10px;
 `;
 
+const Container = styled.div`
+  padding: 40px;
+`;
+
 const ProfileCard = () => {
   const location = useLocation();
-  const studentData = location.state;
+  const student = location.state;
   return (
-    <Grid container sx={{}}>
-      <Grid container item spacing={5} sx={{ marginBottom: 6 }}>
-        {/* <Grid xs={1}></Grid> */}
-        <Grid item xs={4}>
-          <Paper
-            elevation={5}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-around",
-              alignItems: "center",
-              height: "400px",
-            }}
-          >
-            <AccountCircleIcon sx={{ fontSize: 100 }} />
-            <h2 style={{ marginBottom: 2 }}>TEJASWI VERMA - 16252</h2>
-            <h4 style={{ marginBottom: 20 }}>
-              Computer Science and Engineering
-            </h4>
-            <Chip
-              label="Div I "
-              color="primary"
-              size="large"
-              sx={{ width: "30%", fontSize: "1rem" }}
-            />
-            <Span>Total Marks : 3690</Span>
-            <Span>Percentage : 76.2</Span>
-            <SocialContainer>
-              <SocialIcon color="3B5999">
-                <Facebook />
-              </SocialIcon>
-              <SocialIcon color="E4405F">
-                <GitHub />
-              </SocialIcon>
-              <SocialIcon color="55ACEE">
-                <LinkedIn />
-              </SocialIcon>
-            </SocialContainer>
-          </Paper>
+    <Container>
+      <Grid container sx={{}}>
+        <Grid container item spacing={5} sx={{ marginBottom: 6 }}>
+          {/* <Grid xs={1}></Grid> */}
+          <Grid item xs={4}>
+            <Paper
+              elevation={5}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-around",
+                alignItems: "center",
+                height: "400px",
+              }}
+            >
+              <AccountCircleIcon sx={{ fontSize: 100 }} />
+              <h2 style={{ marginBottom: 2 }}>
+                {`${student.name} - ${student.rollNumber}`}
+              </h2>
+              <h4 style={{ marginBottom: 20 }}>{student.branch}</h4>
+              <Chip
+                label={student.division}
+                color="primary"
+                size="large"
+                sx={{ width: "30%", fontSize: "1rem" }}
+              />
+              <Span>Total Marks : {student.totalMarks}</Span>
+              <Span>Percentage : {student.percent}</Span>
+              <SocialContainer>
+                <SocialIcon color="3B5999">
+                  <Facebook />
+                </SocialIcon>
+                <SocialIcon color="E4405F">
+                  <GitHub />
+                </SocialIcon>
+                <SocialIcon color="55ACEE">
+                  <LinkedIn />
+                </SocialIcon>
+              </SocialContainer>
+            </Paper>
+          </Grid>
+          <Grid item xs={8}>
+            <Paper sx={{ height: "400px" }} elevation={5}>
+              <BarChart data={lineChartData(student)}></BarChart>
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-          <Paper sx={{ height: "400px" }} elevation={5}>
-            <BarChart data={lineChartData(studentData)}></BarChart>
-          </Paper>
+        <Grid container item>
+          <Grid item xs={12}>
+            <Paper sx={{ padding: 10 }} elevation={5}>
+              <StackedBarChart data={BarChartData(student)} />
+            </Paper>
+          </Grid>
         </Grid>
       </Grid>
-      <Grid container item>
-        <Grid item xs={12}>
-          <Paper sx={{ padding: 10 }} elevation={5}>
-            <StackedBarChart data={BarChartData(studentData)} />
-          </Paper>
-        </Grid>
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
 
