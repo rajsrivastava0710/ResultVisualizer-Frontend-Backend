@@ -11,118 +11,76 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Grid, TextField } from "@mui/material";
+import { Link } from "react-router-dom";
+import Dropdown from "./Dropdown";
 
-const pages = ["Home", "About", "Contact Us"];
-const settings = ["My Profile"];
+const pages = [
+  ["Home", "students"],
+  ["About", "about"],
+  ["Contact Us", "contact"],
+];
+
+const options = ["Tabular", "Graph", "Bubble Chart"];
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            KNIT Result Visualizer
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
+        <Grid disableGutters container item>
+          <Grid item sx={{ alignItems: "center", display: "flex" }} xs={2}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+              KNIT Result Visualizer
+            </Typography>
+          </Grid>
+          <Grid xs={5}></Grid>
+
+          <Grid
+            item
+            sx={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+            xs={4}
           >
-            KNIT Result Visualizer
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page[0]}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                <Link
+                  to={`/${page[1]}`}
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  {page[0]}
+                </Link>
               </Button>
             ))}
-          </Box>
+            <Dropdown name="Visualise" options={options} />
+          </Grid>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Grid
+            item
+            sx={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+            xs={1}
+          >
             <Tooltip title="Open your student profile">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton sx={{ p: 0 }}>
                 <Avatar>TV</Avatar>
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
+          </Grid>
+        </Grid>
       </Container>
     </AppBar>
   );
