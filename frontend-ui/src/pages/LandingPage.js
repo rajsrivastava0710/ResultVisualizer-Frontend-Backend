@@ -1,9 +1,11 @@
 import { fontSize, fontStyle } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/userRedux";
 
 const parentDiv = {
   display: "flex",
@@ -16,6 +18,19 @@ const parentDiv = {
 };
 
 const Error = () => {
+  const nameRef = React.useRef();
+  const rollNumberRef = React.useRef();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(
+      login({
+        name: nameRef.current.value,
+        rollNumber: rollNumberRef.current.value,
+      })
+    );
+    navigate("/students");
+  };
   return (
     <div style={parentDiv}>
       <div className="welcome-text">Welcome to KNIT Result Visualizer !!</div>
@@ -31,14 +46,25 @@ const Error = () => {
           noValidate
           autoComplete="off"
         >
-          <TextField id="outlined-basic" label="Name" variant="outlined" />
-          <TextField id="outlined-number" label="Roll No" type="number" />
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            inputRef={nameRef}
+          />
+          <TextField
+            id="outlined-number"
+            label="Roll No"
+            type="number"
+            inputRef={rollNumberRef}
+          />
         </Box>
         <div style={{ paddingTop: "10px" }}>
-          <Button variant="contained" color="primary">
-            <Link to="/students" style={{ color: "white" }}>
+          <Button variant="contained" color="primary" onClick={handleClick}>
+            {/* <Link to="/students" style={{ color: "white" }}>
               Enter
-            </Link>
+            </Link> */}
+            Enter
           </Button>
         </div>
       </div>
