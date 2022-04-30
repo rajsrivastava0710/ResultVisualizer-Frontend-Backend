@@ -1,4 +1,6 @@
 import { Chart } from "react-google-charts";
+import Paper from "@mui/material/Paper";
+import ChartTitle from "../ChartTitle"
 
 const options = {
   //   title:
@@ -21,7 +23,8 @@ const options = {
 const BubbleChart = ({ tableData }) => {
   const data = [...tableData];
   return (
-    <div>
+    <Paper sx = {{width: '90%', margin: 'auto', marginBottom: '20px'}}>
+    <ChartTitle title = "Comparison of all branches" ></ChartTitle>
       <Chart
         chartType="BubbleChart"
         width="100%"
@@ -29,7 +32,7 @@ const BubbleChart = ({ tableData }) => {
         data={data}
         options={options}
       />
-    </div>
+    </Paper>
   );
 };
 

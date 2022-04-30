@@ -1,4 +1,6 @@
 import { Chart } from "react-google-charts";
+import Paper from "@mui/material/Paper";
+import ChartTitle from "../ChartTitle"
 
 const options = {
   hAxis: {
@@ -18,7 +20,8 @@ const ScatterChart = ({ tableData }) => {
     data.push([row.rollNumber, +row.percent]);
   });
   return (
-    <div>
+    <Paper elevation={5} sx = {{width: '90%', margin: 'auto', marginBottom: '20px'}}>
+      <ChartTitle title = "Distribution of Roll Number and Percentage" ></ChartTitle>
       <Chart
         chartType="ScatterChart"
         width="100%"
@@ -26,7 +29,7 @@ const ScatterChart = ({ tableData }) => {
         data={data}
         options={options}
       />
-    </div>
+    </Paper>
   );
 };
 
