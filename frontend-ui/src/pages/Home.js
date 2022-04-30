@@ -8,6 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import styled from "styled-components";
 
 const Home = () => {
   const { isLoading, error, sendRequest } = useHttp();
@@ -49,8 +50,11 @@ const Home = () => {
     //   return a.rollNumber - b.rollNumber;
     // });
   };
+  const Container = styled.div`
+    padding: 30px;
+  `;
   return (
-    <div>
+    <Container>
       {table1Data && (
         <StickyHeadTable
           tableData={table1Data}
@@ -58,7 +62,7 @@ const Home = () => {
           branch={queryParam || "All"}
         />
       )}
-    </div>
+    </Container>
   );
 };
 

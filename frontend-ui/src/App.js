@@ -3,11 +3,16 @@ import ChartsVisualization from "./pages/ChartsVisualization";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import StudentProfile from "./pages/StudentProfile";
-import LandingPage from "./pages/LandingPage"
+import LandingPage from "./pages/LandingPage";
 
 import ContactPage from "./pages/Contact";
 import ProfileCard from "./components/ProfileCard";
 import NavBar from "./components/Navbar";
+import styled from "styled-components";
+
+const Container = styled.div`
+  padding: 50px;
+`;
 
 function App() {
   return (

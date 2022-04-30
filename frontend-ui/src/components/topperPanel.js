@@ -5,6 +5,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React, { useState, useEffect } from "react";
+import { Paper } from "@mui/material";
 
 const TopperPanel = ({ studentData }) => {
   const [expanded, setExpanded] = useState(false);
@@ -20,7 +21,7 @@ const TopperPanel = ({ studentData }) => {
     justifyContent: "space-around",
     flexWrap: "wrap",
     margin: "15px auto",
-    marginBottom: "32px"
+    marginBottom: "32px",
   };
   const singleStudent = {
     width: "200px",
@@ -48,64 +49,62 @@ const TopperPanel = ({ studentData }) => {
   };
 
   return (
-    <div className="topperLayoutBox">
-      <div>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-          sx={{}}
+    <Paper
+      sx={{ borderRadius: "15px", overflow: "hidden", margin: "15px auto" }}
+      elevation={6}
+    >
+      <Accordion
+        expanded={expanded === "panel1"}
+        onChange={handleChange("panel1")}
+        sx={{}}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+          sx={{ background: "powderblue" }}
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-            sx={{ background: "powderblue" }}
-          >
-            <div style={topperText}>TOPPERS</div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div style={parentDiv}>
-              <div className="studentBlock">
-                <div
-                  style={singleStudent}
-                  className="secondTopperColor toppers"
-                >
-                  {
-                    <SingleStudentTopper
-                      studentData={studentData[1]}
-                      color={"#d0cecef0"}
-                    ></SingleStudentTopper>
-                  }
-                </div>
-              </div>
-
-              <div className="studentBlock firstTopperPosition">
-                <div style={crownStyle}>&#128081;</div>
-                <div style={singleStudent} className="topperColor toppers">
-                  {
-                    <SingleStudentTopper
-                      studentData={studentData[0]}
-                      color={"#ecd6ab"}
-                    ></SingleStudentTopper>
-                  }
-                </div>
-              </div>
-
-              <div className="studentBlock relativePosition">
-                <div style={singleStudent} className="thirdTopperColor toppers">
-                  {
-                    <SingleStudentTopper
-                      studentData={studentData[2]}
-                      color={"#4d3535"}
-                    ></SingleStudentTopper>
-                  }
-                </div>
+          <div style={topperText}>TOPPERS</div>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div style={parentDiv}>
+            <div className="studentBlock">
+              <div style={singleStudent} className="secondTopperColor toppers">
+                {
+                  <SingleStudentTopper
+                    studentData={studentData[1]}
+                    color={"#d0cecef0"}
+                  ></SingleStudentTopper>
+                }
               </div>
             </div>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    </div>
+
+            <div className="studentBlock firstTopperPosition">
+              <div style={crownStyle}>&#128081;</div>
+              <div style={singleStudent} className="topperColor toppers">
+                {
+                  <SingleStudentTopper
+                    studentData={studentData[0]}
+                    color={"#ecd6ab"}
+                  ></SingleStudentTopper>
+                }
+              </div>
+            </div>
+
+            <div className="studentBlock relativePosition">
+              <div style={singleStudent} className="thirdTopperColor toppers">
+                {
+                  <SingleStudentTopper
+                    studentData={studentData[2]}
+                    color={"#4d3535"}
+                  ></SingleStudentTopper>
+                }
+              </div>
+            </div>
+          </div>
+        </AccordionDetails>
+      </Accordion>
+    </Paper>
   );
 };
 

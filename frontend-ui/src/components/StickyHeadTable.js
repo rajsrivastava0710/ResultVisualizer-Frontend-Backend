@@ -167,6 +167,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
       />
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <h2 style={{ textAlign: "center", margin: "10px" }}>Students Data</h2>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>

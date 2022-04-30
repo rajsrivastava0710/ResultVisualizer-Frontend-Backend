@@ -41,7 +41,7 @@ const ProfileCard = () => {
   const location = useLocation();
   const studentData = location.state;
   return (
-    <Grid container sx={{ padding: 8 }}>
+    <Grid container sx={{}}>
       <Grid container item spacing={5} sx={{ marginBottom: 6 }}>
         {/* <Grid xs={1}></Grid> */}
         <Grid item xs={4}>
