@@ -20,8 +20,8 @@ const AboutPage = () => {
             https://govexams.com/knit/searchresult.aspx
           </a>
         </p>
-        <p>Features :</p>
-        <ul>
+        <p style={{fontFamily: 'revert',fontWeight: '600',textDecoration: 'underline', marginBottom: '10px'}}>Current Features :</p>
+        <ul style = {{marginTop: '0px'}}>
           <li>
             Visualize all the students data of a particular branch in tabular
             format.
@@ -39,8 +39,8 @@ const AboutPage = () => {
           </li>
           <li>Shows the overall toppers as well as branch toppers.</li>
         </ul>
-        <p>Future Endeavours :</p>
-        <ul>
+        <p style={{fontFamily: 'revert',fontWeight: '600',textDecoration: 'underline', marginBottom: '10px'}}>Future Endeavours :</p>
+        <ul style = {{marginTop: '0px'}}>
           <li>Compare 2 student's data side by side.</li>
           <li>
             Generating a file with list of students as per the given filter.
