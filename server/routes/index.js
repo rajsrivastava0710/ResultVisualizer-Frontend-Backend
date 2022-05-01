@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   res.send('Welcome to KNIT Result Visualiser')
 })
 
-router.get('/scrapper',homeController.scrapperRoute1);
+// router.get('/scrapper',homeController.scrapperRoute1);
 
 router.use('/student',require('./student'));
 
