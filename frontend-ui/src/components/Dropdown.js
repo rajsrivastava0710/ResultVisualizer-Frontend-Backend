@@ -9,6 +9,7 @@ import ArchiveIcon from "@mui/icons-material/Archive";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Link } from "react-router-dom";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -89,7 +90,12 @@ export default function Dropdown({ name, options }) {
         {options &&
           options.map((value) => (
             <MenuItem onClick={handleClose} disableRipple>
-              {value}
+              <Link
+                to={value[1]}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                {value[0]}
+              </Link>
             </MenuItem>
           ))}
         {/* <MenuItem onClick={handleClose} disableRipple>

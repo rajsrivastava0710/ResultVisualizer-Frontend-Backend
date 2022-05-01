@@ -11,7 +11,7 @@ import useHttp from "../custom_hooks/useHttp";
 import { BASE_URL } from "../constants";
 import { Box } from "@mui/system";
 import styled from "styled-components";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 import {
   FormControl,
@@ -119,18 +119,18 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
       }}
     >
       <div className="search-filter-bar">
-
         <div>
-          <TextField id="outlined-basic" 
+          <TextField
+            id="outlined-basic"
             label="Search"
-            placeholder= "Search by Name / Roll No"
-            variant="outlined" 
+            placeholder="Search by Name / Roll No"
+            variant="outlined"
             onChange={handleInputChange}
             value={studentName}
             inputRef={inputElement}
           />
         </div>
-        
+
         <div>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
             <InputLabel id="demo-select-small">Branch</InputLabel>
@@ -167,7 +167,6 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
             </Select>
           </FormControl>
         </div>
-
       </div>
 
       <TopperPanel
@@ -177,7 +176,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
       />
       {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <div className = 'studentsTableTitle'>Students Data</div>
+          <div className="studentsTableTitle">Students Data</div>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -186,12 +185,13 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      style={{ minWidth: column.minWidth,
-                        background: 'honeydew', 
-                        fontSize: '1.2rem', 
-                        fontWeight: '600', 
-                        fontFamily: 'sans-serif',
-                        textAlign: 'center'
+                      style={{
+                        minWidth: column.minWidth,
+                        background: "honeydew",
+                        fontSize: "1.2rem",
+                        fontWeight: "600",
+                        fontFamily: "sans-serif",
+                        textAlign: "center",
                       }}
                     >
                       {column.label}
@@ -217,7 +217,11 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
-                            <TableCell style= {{textAlign: 'center'}} key={column.id} align={column.align}>
+                            <TableCell
+                              style={{ textAlign: "center" }}
+                              key={column.id}
+                              align={column.align}
+                            >
                               {column.format && typeof value === "number"
                                 ? column.format(value)
                                 : value}
