@@ -13,6 +13,7 @@ import { BarChart } from "./charts/BarChart";
 import { BarChartData, lineChartData } from "../util/convertData";
 import { useLocation } from "react-router-dom";
 import { StackedBarChart } from "./charts/StackedBarChart";
+import { useSelector } from "react-redux";
 
 const SocialContainer = styled.div`
   display: flex;
@@ -43,7 +44,8 @@ const Container = styled.div`
 
 const ProfileCard = () => {
   const location = useLocation();
-  const student = location.state;
+  const user = useSelector((state) => state.user.currentUser);
+  const student = location.state || user;
   return (
     <Container>
       <Grid container sx={{}}>

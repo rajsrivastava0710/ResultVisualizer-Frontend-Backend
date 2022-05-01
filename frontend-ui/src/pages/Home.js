@@ -9,11 +9,16 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/userRedux";
+import { current } from "@reduxjs/toolkit";
 
 const Home = () => {
   const { isLoading, error, sendRequest } = useHttp();
   const [queryParam, setQueryParam] = useState("All");
   const [table1Data, setTable1Data] = useState();
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     sendRequest(
@@ -27,6 +32,10 @@ const Home = () => {
   useEffect(() => {
     if (table1Data) {
       addRank(table1Data);
+      const currentUser = table1Data.find(
+        (student) => student.rollNumber === user.rollNumber
+      );
+      dispatch(login(currentUser));
     }
   }, [table1Data]);
 
