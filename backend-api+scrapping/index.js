@@ -3,7 +3,8 @@ const path = require("path");
 const app = express();
 const puppeteer = require("puppeteer");
 const db = require("./config/mongoose");
-const port = 8000;
+require('dotenv').config()
+const port = process.env.PORT || 8000;
 const cors = require("cors");
 
 app.use(cors());

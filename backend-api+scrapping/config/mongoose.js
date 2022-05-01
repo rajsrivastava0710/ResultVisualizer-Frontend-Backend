@@ -1,8 +1,9 @@
 //require the library
 const mongoose = require('mongoose');
+require('dotenv').config()
 
 //connect to the database
-mongoose.connect('mongodb://localhost/knitResultScrap',{useNewUrlParser:true});
+mongoose.connect(process.env.DB_URI,{useNewUrlParser:true});
 
 //acquire the connection(to check if it's successful)
 const db = mongoose.connection;
@@ -14,3 +15,4 @@ db.on('error', function(err) { console.log(err.message); });
 db.once('open', function() {
   console.log("Successfully connected to the database");
 });
+

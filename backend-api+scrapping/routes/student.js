@@ -8,7 +8,7 @@ console.log('Student router loaded');
 
 router.get('/',studentController.getAllStudentsDetail);
 
-router.get('/destroy/setItOnFire',studentController.deleteAllStudents);
+// router.get('/destroy/setItOnFire',studentController.deleteAllStudents);
 
 router.get('/:id',studentController.getStudentDataByRollNo);
 
