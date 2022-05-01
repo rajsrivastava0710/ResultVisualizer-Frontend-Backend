@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const SingleContactContainer = ({data}) => {
 
     return (
@@ -7,7 +9,7 @@ const SingleContactContainer = ({data}) => {
             <div className='developer-pic' style = {data.image}></div>
             <div className='developer-detail'>
               <span>{data.name}</span>
-              <span>{data.email}</span>
+              <span><a href={`mailto:${data.email}`}>{data.email}</a></span>
               <span>{data.designation}</span>
               <span>{data.role}</span>
             </div>

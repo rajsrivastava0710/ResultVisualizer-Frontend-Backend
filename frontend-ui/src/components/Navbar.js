@@ -17,7 +17,7 @@ import Dropdown from "./Dropdown";
 import { useSelector } from "react-redux";
 
 const pages = [
-  ["Home", "students"],
+  ["Home", ""],
   ["About", "about"],
   ["Contact Us", "contact"],
 ];
@@ -34,18 +34,18 @@ const NavBar = () => {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Grid disableGutters container item>
-          <Grid item sx={{ alignItems: "center", display: "flex" }} xs={2}>
+        <Grid container item>
+          <Grid item sx={{ alignItems: "center", display: "flex" }} xs={7}>
             <Typography
               variant="h6"
               noWrap
               component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+              sx={{ mr: 2, display: { xs: "none", md: "flex" }, fontSize: 30 }}
             >
               KNIT Result Visualizer
             </Typography>
           </Grid>
-          <Grid xs={5}></Grid>
+          {/* <Grid xs={4}></Grid> */}
 
           <Grid
             item
@@ -63,13 +63,22 @@ const NavBar = () => {
               >
                 <Link
                   to={`/${page[1]}`}
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    fontSize: 20,
+                    fontWeight: "600px",
+                  }}
                 >
                   {page[0]}
                 </Link>
               </Button>
             ))}
-            <Dropdown name="Visualise" options={options} />
+            <Dropdown
+              name="Visualize"
+              options={options}
+              sx={{ fontSize: 20 }}
+            />
             {user && user.name && user.rollNumber && (
               <Tooltip title="Open your student profile">
                 <IconButton sx={{ p: 0 }}>

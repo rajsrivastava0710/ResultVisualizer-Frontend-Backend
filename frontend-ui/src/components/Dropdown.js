@@ -75,6 +75,7 @@ export default function Dropdown({ name, options }) {
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        sx={{ fontSize: 20, fontWeight: 600 }}
       >
         {name}
       </Button>
@@ -89,7 +90,7 @@ export default function Dropdown({ name, options }) {
       >
         {options &&
           options.map((value) => (
-            <MenuItem onClick={handleClose} disableRipple>
+            <MenuItem onClick={handleClose} disableRipple key={value[0]}>
               <Link
                 to={value[1]}
                 style={{ textDecoration: "none", color: "black" }}

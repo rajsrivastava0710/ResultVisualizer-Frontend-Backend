@@ -192,7 +192,6 @@ h6 {
   justify-content: space-between;
 }
 
-
 .studentsTableTitle {
   font-size: 2rem;
   margin: 0;
@@ -213,9 +212,15 @@ h6 {
   margin: 30px;
 }
 
-
 /* ////////////////// */
 
 a {
   text-decoration: none;
+}
+
+.about-page {
+  font-size: 1.5rem;
+  width: 80%;
+  margin: auto;
+  font-family: system-ui;
 }

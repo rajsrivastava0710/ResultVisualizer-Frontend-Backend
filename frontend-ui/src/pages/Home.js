@@ -32,9 +32,12 @@ const Home = () => {
   useEffect(() => {
     if (table1Data) {
       addRank(table1Data);
-      const currentUser = table1Data.find(
-        (student) => student.rollNumber === user.rollNumber
-      );
+      const currentUser = table1Data.find((student) => {
+        if (student && user) {
+          return student.rollNumber === user.rollNumber;
+        }
+        return false;
+      });
       dispatch(login(currentUser));
     }
   }, [table1Data]);
