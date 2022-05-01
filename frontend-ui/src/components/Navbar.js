@@ -22,7 +22,7 @@ const pages = [
   ["Contact Us", "contact"],
 ];
 
-const options = ["Tabular", "Graph", "Bubble Chart"];
+const options = ["Tabular Visualisation", "Graphical - Student Level", "Graphical - Branch Level"];
 
 const NavBar = () => {
   const user = useSelector((state) => state.user.currentUser);

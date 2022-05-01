@@ -11,6 +11,7 @@ import PieChart from "../components/charts/PieChart";
 import BubbleChart from "../components/charts/BubbleChart";
 import { BarChart } from "../components/charts/BarChart";
 import { LineChart } from "../components/charts/LineChart";
+import PageTitle from "../components/PageTitle";
 
 const ChartsVisualization = () => {
   const handleChange = (event) => {
@@ -27,15 +28,10 @@ const ChartsVisualization = () => {
     error: error2,
     sendRequest: sendRequest2,
   } = useHttp();
-  const {
-    isLoading: isLoading3,
-    error: error3,
-    sendRequest: sendRequest3,
-  } = useHttp();
+
   const [branch, setBranch] = useState("Civil");
   const [table1Data, setTable1Data] = useState();
   const [table2Data, setTable2Data] = useState();
-  const [table3Data, setTable3Data] = useState();
 
   useEffect(() => {
     sendRequest1(
@@ -52,18 +48,10 @@ const ChartsVisualization = () => {
     );
   }, [branch]);
 
-  useEffect(() => {
-    sendRequest3(
-      {
-        url: `${BASE_URL}/visualise/branchBubble`,
-      },
-      setTable3Data
-    );
-  }, []);
   return (
     <div>
       <div className = "chart-page-title-filter">
-        <div className="chart-page-title">Graphical Visualisation of students in branch </div> 
+        <PageTitle title = {"Graphical Visualisation of students in branch "}></PageTitle>
         <div>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
           <InputLabel id="demo-select-small">Branch</InputLabel>
@@ -88,7 +76,6 @@ const ChartsVisualization = () => {
       {table1Data && <ScatterChart tableData={table1Data} />}
       {table1Data && <HistogramChart tableData={table1Data} />}
       {table2Data && <PieChart tableData={table2Data} />}
-      {table3Data && <BubbleChart tableData={table3Data} />}
     </div>
   );
 };
