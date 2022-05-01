@@ -1,3 +1,4 @@
+import PageTitle from "../components/PageTitle"
 import SingleContactContainer from "../components/singleContact"
 import Image1 from "../images/raj.jpg"
 import Image2 from "../images/tejaswi.jpg"
@@ -32,7 +33,7 @@ const tvData = {
 const ContactPage = () => {
     return (
       <div className='contact-page-container'>
-        <div className='heading'>Contact Us</div>
+        <PageTitle title = {"Contact Us"}></PageTitle>
         <div className='all-contact-container'>
           <SingleContactContainer data = {rajData} /> 
           <SingleContactContainer data = {tvData} />

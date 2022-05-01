@@ -14,7 +14,8 @@ const SingleStudentTopper = ({studentData, color}) => {
         color: color,
         fontFamily: 'cursive',
         fontWeight: '600',
-        padding: '5px'
+        padding: '5px',
+        cursor: 'pointer'
     }
     const handleClick = (studentsData) => {
         navigate(`/students/${studentsData.rollNumber}`, { state: studentsData });

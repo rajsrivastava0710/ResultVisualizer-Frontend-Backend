@@ -1,6 +1,10 @@
+import PageTitle from "../components/PageTitle"
+
 const AboutPage = () => {
   return (
-        <div>About Page</div>
+    <div style = {{display: 'flex', padding: '15px', flexDirection: 'column'}}>
+      <PageTitle title = {"About Page"}></PageTitle>
+    </div>
   );
 };
 
