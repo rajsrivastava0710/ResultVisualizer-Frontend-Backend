@@ -18,7 +18,7 @@ const Container = styled.div`
 
 function App() {
   return (
-    <>
+    <div style={{background: 'lavender'}}>
       <NavBar />
       <Routes>
         <Route path="/" exact element={<LandingPage />}></Route>
@@ -32,7 +32,7 @@ function App() {
         <Route path='/about' exact element = {<AboutPage />}></Route>
         <Route path="*" element={<Error />}></Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

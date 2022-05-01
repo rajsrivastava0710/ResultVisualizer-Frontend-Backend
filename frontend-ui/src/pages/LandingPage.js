@@ -13,7 +13,7 @@ const parentDiv = {
   justifyContent: "space-evenly",
   alignItems: "center",
   width: "100%",
-  height: "91%",
+  height: "88vh",
   background: "lavender",
 };
 

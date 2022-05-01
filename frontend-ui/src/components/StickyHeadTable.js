@@ -123,7 +123,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
           <TextField
             id="outlined-basic"
             label="Search"
-            placeholder="Search by Name / Roll No"
+            // placeholder="Search by Name / Roll No"
             variant="outlined"
             onChange={handleInputChange}
             value={studentName}

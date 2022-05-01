@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 const pages = [
   ["Home", ""],
   ["About", "about"],
-  ["Contact Us", "contact"],
+  ["Contact", "contact"],
 ];
 
 const options = [
