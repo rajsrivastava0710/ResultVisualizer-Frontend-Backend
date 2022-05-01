@@ -49,30 +49,34 @@ const ChartsVisualization = () => {
   }, [branch]);
 
   return (
-    <div>
-      <div className = "chart-page-title-filter">
-        <PageTitle title = {"Graphical Visualisation of students in branch "}></PageTitle>
+    <div style={{ padding: 10 }}>
+      <div className="chart-page-title-filter">
+        <PageTitle
+          title={"Graphical Visualisation of students in branch "}
+        ></PageTitle>
         <div>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-          <InputLabel id="demo-select-small">Branch</InputLabel>
-          <Select
-            labelId="demo-select-small"
-            id="demo-select-small"
-            value={branch}
-            label="Age"
-            onChange={handleChange}
-          >
-            <MenuItem value="Civil">Civil</MenuItem>
-            <MenuItem value="Computer Science">Computer Science</MenuItem>
-            <MenuItem value="Electrical">Electrical</MenuItem>
-            <MenuItem value="Electronics">Electronics</MenuItem>
-            <MenuItem value="Mechanical">Mechanical</MenuItem>
-            <MenuItem value="Information Technology">Information Technology</MenuItem>
-          </Select>
-        </FormControl>
+            <InputLabel id="demo-select-small">Branch</InputLabel>
+            <Select
+              labelId="demo-select-small"
+              id="demo-select-small"
+              value={branch}
+              label="Age"
+              onChange={handleChange}
+            >
+              <MenuItem value="Civil">Civil</MenuItem>
+              <MenuItem value="Computer Science">Computer Science</MenuItem>
+              <MenuItem value="Electrical">Electrical</MenuItem>
+              <MenuItem value="Electronics">Electronics</MenuItem>
+              <MenuItem value="Mechanical">Mechanical</MenuItem>
+              <MenuItem value="Information Technology">
+                Information Technology
+              </MenuItem>
+            </Select>
+          </FormControl>
         </div>
       </div>
-      
+
       {table1Data && <ScatterChart tableData={table1Data} />}
       {table1Data && <HistogramChart tableData={table1Data} />}
       {table2Data && <PieChart tableData={table2Data} />}

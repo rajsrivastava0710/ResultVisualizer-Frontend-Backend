@@ -23,9 +23,9 @@ const pages = [
 ];
 
 const options = [
-  ["Tabular", "/charts"],
-  ["Graph", "/charts"],
-  ["Bubble Chart", "/charts"],
+  ["Tabular Visualization", "/students"],
+  ["Graphical - Student Level", "/charts"],
+  ["Graphical - Branch Level", "/charts2"],
 ];
 
 const NavBar = () => {
@@ -54,7 +54,7 @@ const NavBar = () => {
               display: "flex",
               justifyContent: "flex-end",
             }}
-            xs={4}
+            xs={5}
           >
             {pages.map((page) => (
               <Button
@@ -70,21 +70,17 @@ const NavBar = () => {
               </Button>
             ))}
             <Dropdown name="Visualise" options={options} />
-          </Grid>
-
-          <Grid
-            item
-            sx={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-            xs={1}
-          >
             {user && user.name && user.rollNumber && (
               <Tooltip title="Open your student profile">
                 <IconButton sx={{ p: 0 }}>
-                  <Avatar>{user.name.charAt(0)}</Avatar>
+                  <Avatar>
+                    <Link
+                      to={`/students/${user.rollNumber}`}
+                      style={{ color: "white", textDecoration: "none" }}
+                    >
+                      {user.name.charAt(0)}
+                    </Link>
+                  </Avatar>
                 </IconButton>
               </Tooltip>
             )}

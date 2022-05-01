@@ -5,7 +5,6 @@ import BubbleChart from "../components/charts/BubbleChart";
 import PageTitle from "../components/PageTitle";
 
 const BubbleChartVisualisation = () => {
-
   const {
     isLoading: isLoading3,
     error: error3,
@@ -24,15 +23,16 @@ const BubbleChartVisualisation = () => {
   }, []);
 
   return (
-    <div>
-      <div className = "chart-page-title-filter">
-        <PageTitle title = {"Graphical Visualisation of all branches "}></PageTitle> 
+    <div style={{ padding: 10 }}>
+      <div className="chart-page-title-filter">
+        <PageTitle
+          title={"Graphical Visualisation of all branches "}
+        ></PageTitle>
       </div>
-      
-      {table3Data && <BubbleChart tableData={table3Data} />}
 
+      {table3Data && <BubbleChart tableData={table3Data} />}
     </div>
   );
 };
 
-export default BubbleChartVisualisation
+export default BubbleChartVisualisation;
