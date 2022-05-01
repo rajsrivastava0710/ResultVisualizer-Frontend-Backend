@@ -1,5 +1,7 @@
 import React from "react";
 import { Chart } from "react-google-charts";
+import ChartTitle from "../ChartTitle";
+import Paper from "@mui/material/Paper";
 
 // export const data = [
 //   ["City", "2010 Population"],
@@ -11,7 +13,7 @@ import { Chart } from "react-google-charts";
 // ];
 
 export const options = {
-  title: "Marks in each subject",
+  // title: "Marks in each subject",
   chartArea: { width: "40%" },
   isStacked: true,
   hAxis: {
@@ -25,12 +27,14 @@ export const options = {
 
 export function BarChart({ data }) {
   return (
-    <Chart
-      chartType="BarChart"
-      width="100%"
-      height="400px"
-      data={data}
-      options={options}
-    />
+    // <Paper elevation={5} sx = {{width: '90%', margin: 'auto', marginBottom: '20px'}}>
+       <Chart
+        chartType="BarChart"
+        width="100%"
+        height="400px"
+        data={data}
+        options={options}
+      />
+    // </Paper>
   );
 }

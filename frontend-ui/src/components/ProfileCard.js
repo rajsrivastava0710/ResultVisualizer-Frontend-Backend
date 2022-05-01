@@ -1,6 +1,7 @@
 import { Chip, Fab, Grid, Paper } from "@mui/material";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ChartTitle from "./ChartTitle"
 import styled from "styled-components";
 import {
   Facebook,
@@ -88,12 +89,14 @@ const ProfileCard = () => {
           </Grid>
           <Grid item xs={8}>
             <Paper sx={{ height: "400px" }} elevation={5}>
+              <ChartTitle title = "Student's percentage year wise"></ChartTitle>
               <BarChart data={lineChartData(student)}></BarChart>
             </Paper>
           </Grid>
         </Grid>
         <Grid container item>
           <Grid item xs={12}>
+            <ChartTitle title = "Marks in each subject"></ChartTitle>
             <Paper sx={{ padding: 10 }} elevation={5}>
               <StackedBarChart data={BarChartData(student)} />
             </Paper>

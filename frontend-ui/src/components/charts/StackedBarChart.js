@@ -1,5 +1,7 @@
 import React from "react";
 import { Chart } from "react-google-charts";
+import ChartTitle from "../ChartTitle";
+import Paper from "@mui/material/Paper";
 
 // export const data = [
 //   ["City", "2010 Population", "2000 Population"],
@@ -12,8 +14,8 @@ import { Chart } from "react-google-charts";
 
 export const options = {
   chart: {
-    title: "Student's percentage year wise",
-    subtitle: "This graph shows percentage of a student year wise",
+    // title: " ",
+    // subtitle: " ",
   },
   hAxis: {
     title: "Year",
@@ -31,12 +33,15 @@ export const options = {
 
 export function StackedBarChart({ data }) {
   return (
-    <Chart
-      chartType="Bar"
-      width="100%"
-      height="300px"
-      data={data}
-      options={options}
-    />
+    // <Paper elevation={5} sx = {{width: '90%', margin: 'auto', marginBottom: '20px'}}>
+      // <ChartTitle title = "Student's percentage year wise"></ChartTitle>
+      <Chart
+        chartType="Bar"
+        width="100%"
+        height="250px"
+        data={data}
+        options={options}
+      />
+    // </Paper>
   );
 }
