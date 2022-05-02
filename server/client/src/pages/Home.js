@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/userRedux";
 import { current } from "@reduxjs/toolkit";
+import SpinnerLoader from "../components/spinnerLoader";
 
 const Home = () => {
   const { isLoading, error, sendRequest } = useHttp();
@@ -66,6 +67,10 @@ const Home = () => {
   `;
   return (
     <Container>
+      {!table1Data && (
+        <SpinnerLoader message = {"Fetching Student's data..."}></SpinnerLoader>
+      )
+      }
       {table1Data && (
         <StickyHeadTable
           tableData={table1Data}
