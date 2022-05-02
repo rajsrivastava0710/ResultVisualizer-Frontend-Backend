@@ -1,7 +1,6 @@
 import StickyHeadTable from "../components/StickyHeadTable";
 import useHttp from "../custom_hooks/useHttp";
 import React, { useState, useEffect } from "react";
-import { BASE_URL } from "../constants";
 import ScatterChart from "../components/charts/ScatterChart";
 import HistogramChart from "../components/charts/HistogramChart";
 import InputLabel from "@mui/material/InputLabel";
@@ -23,7 +22,7 @@ const Home = () => {
   useEffect(() => {
     sendRequest(
       {
-        url: `${BASE_URL}/student?branch=${queryParam}`,
+        url: `/student?branch=${queryParam}`,
       },
       setTable1Data
     );

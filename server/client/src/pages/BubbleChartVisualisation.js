@@ -1,6 +1,5 @@
 import useHttp from "../custom_hooks/useHttp";
 import React, { useState, useEffect } from "react";
-import { BASE_URL } from "../constants";
 import BubbleChart from "../components/charts/BubbleChart";
 import PageTitle from "../components/PageTitle";
 
@@ -16,7 +15,7 @@ const BubbleChartVisualisation = () => {
   useEffect(() => {
     sendRequest3(
       {
-        url: `${BASE_URL}/visualise/branchBubble`,
+        url: `/visualise/branchBubble`,
       },
       setTable3Data
     );

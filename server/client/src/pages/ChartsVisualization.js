@@ -1,6 +1,5 @@
 import useHttp from "../custom_hooks/useHttp";
 import React, { useState, useEffect } from "react";
-import { BASE_URL } from "../constants";
 import ScatterChart from "../components/charts/ScatterChart";
 import HistogramChart from "../components/charts/HistogramChart";
 import InputLabel from "@mui/material/InputLabel";
@@ -36,13 +35,13 @@ const ChartsVisualization = () => {
   useEffect(() => {
     sendRequest1(
       {
-        url: `${BASE_URL}/student?branch=${branch}`,
+        url: `/student?branch=${branch}`,
       },
       setTable1Data
     );
     sendRequest2(
       {
-        url: `${BASE_URL}/visualise/rollPercent?branch=${branch}`,
+        url: `/visualise/rollPercent?branch=${branch}`,
       },
       setTable2Data
     );

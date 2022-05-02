@@ -8,7 +8,6 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import useHttp from "../custom_hooks/useHttp";
-import { BASE_URL } from "../constants";
 import { Box } from "@mui/system";
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
@@ -163,7 +162,7 @@ export default function StickyHeadTable({ tableData, setBranch, branch }) {
               onChange={handleSort}
             >
               <MenuItem value="Roll Number">Roll Number</MenuItem>
-              <MenuItem value="Percentage">Percentage</MenuItem>
+              <MenuItem value="Percentage">Rank</MenuItem>
             </Select>
           </FormControl>
         </div>

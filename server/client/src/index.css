@@ -178,6 +178,7 @@ h6 {
   font-family: cursive;
   display: flex;
   align-items: center;
+  text-align: center;
 }
 
 .rest-landing-area {
