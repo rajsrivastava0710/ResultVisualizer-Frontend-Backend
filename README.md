@@ -5,16 +5,14 @@ Steps to run on your local machine:-
 
 ->Install Node.js and MongoDB.
 
-Start Backend Server:
+Start application:- 
 
+-> cd server
 -> npm install
 
--> npm install -g nodemon
-
--> npm start
-
-Start React Application:
-
+->cd client
 ->npm install
 
-->npm start
+-> cd ../
+
+-> npm run dev
